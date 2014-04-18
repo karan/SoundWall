@@ -64,16 +64,19 @@ $(function(){
             var $iframe = iframes[i];
             console.log($iframe);
             $iframe.src = 'http://w.soundcloud.com/player/?url=https://soundcloud.com/partyomo/partynextdoor-west-district';
-            widgets.push(SC.Widget($iframe));
+            var widget = SC.Widget($iframe);
+            widget.setVolume(0);
+            widgets.push(widget);
 
             console.log(tracks[i]);
 
-            widgets[i].load(tracks[i].uri, {
-                auto_play: false,
+            widget.load(tracks[i].uri, {
+                auto_play: true,
                 buying: false,
                 sharing: false,
                 show_playcount: false,
-                show_comments: false
+                show_comments: false,
+                single_active: false
             });
         }
     }
