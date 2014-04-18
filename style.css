@@ -37,17 +37,37 @@ iframe {
     padding: 0px;
 }
 
-#search {
+#header {
+    display: block;
     height: 50px;
-    margin-top: 5px;
+    padding: 0 5%;
+    background-color: #111;
+}
+
+#logo:before {
+    content: "SoundWall";
+    color: #FF6600;
+}
+#logo {
+    display: inline-block;
+    font-size: 2.2em;
+    font-weight: 100;
+    width: 20%;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#search {
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 #searchterm {
-    width: 80%;
+    width: 100%;
     max-width: 400px;
-    height: 20px;
+    height: 18px;
     font-size: 18px;
-    margin-top: 1px;
     border-radius: 8px;
     border: 0;
     color: #111;
@@ -57,4 +77,9 @@ iframe {
     box-shadow: 0 1px 0 rgba(255,255,255,.15), 
                 0 2px 4px rgba(0,0,0,.2) inset, 
                 0 0 12px rgba(255,255,255,.1);
+}
+
+#stuff {
+    display: inline-block;
+    width: 20%;
 }
