@@ -39,6 +39,14 @@ $(function(){
         }
     }
 
+    // reset the state of DOM
+    function cleanUp() {
+        $("iframe").remove();
+        widgets = [];
+        var curRow = 0;
+        var curCol = 0;
+    }
+
     // main function that handles searching
     $('#searchterm').keypress(function(event) {
 
@@ -50,9 +58,9 @@ $(function(){
 
     });
 
-    // searches and plays a track
+    // resets the grid, make a new one, searches for songs
     function addTracks(q) {
-        $("iframe").remove();
+        cleanUp();
         builGrid();
 
         SC.get('/tracks', { q: q, limit: 10 }, function(tracks) {
@@ -60,6 +68,7 @@ $(function(){
         });
     }
 
+    // loads the tracks into iframes
     function loadTracks(tracks) {
         var iframes = $("iframe");
 
@@ -68,7 +77,6 @@ $(function(){
             $iframe.src = 'http://w.soundcloud.com/player/?url=https://soundcloud.com/partyomo/partynextdoor-west-district';
             var widget = SC.Widget($iframe);
             
-            widget.setVolume(0);
             bindIt(widget);
 
             widgets.push(widget);
@@ -84,6 +92,7 @@ $(function(){
         }
     }
 
+    // handles muting the widget on load
     function bindIt(widget) {
         widget.bind(SC.Widget.Events.READY, function() {
             console.log("setting volume to 0");
@@ -91,6 +100,7 @@ $(function(){
         });
     }
 
+    // handle cursor movement
     $("#grid").mouseover(function(data) {
 
         var x = data.clientX;
@@ -106,6 +116,7 @@ $(function(){
         muteEverythingElse(row, col);
     });
 
+    // mutes all widgets except the one denoted by (row, col)
     function muteEverythingElse(row, col) {
         var iframes = $("iframe");
 
