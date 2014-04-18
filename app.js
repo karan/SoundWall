@@ -88,12 +88,12 @@ $(function(){
     }
 
     $("#grid").mouseover(function(data) {
-        var row = Math.floor(data.clientY / iframeHeight) - 1;
-        var col = Math.floor(data.clientX / iframeWidth);
+        var row = Math.max(Math.min(Math.floor((data.clientY-50) / iframeHeight), numRows), 0);
+        var col = Math.max(Math.min(Math.floor(data.clientX / iframeWidth), numCols), 0);
 
         console.log(row + ", " + col);
 
-        widgets[row*numCols+col].setVolume(100);
+        // widgets[row*numCols+col].setVolume(100);
 
         muteEverythingElse(row, col);
     });
