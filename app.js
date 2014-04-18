@@ -26,8 +26,7 @@ $(function(){
     addTracks("party");
 
     // build the grid of iframes
-    var builGrid = function() {
-
+    function builGrid() {
         var grid = $("#grid");
         for (var i = 0; i < numRows; i++) {
             for (var j = 0; j < numCols; j++) {
@@ -45,9 +44,7 @@ $(function(){
 
         if (event.which == 13) {
             event.preventDefault();
-
             var q = $("#searchterm").val();
-
             addTracks(q);
         }
 
@@ -55,6 +52,9 @@ $(function(){
 
     // searches and plays a track
     function addTracks(q) {
+        $("iframe").remove();
+        builGrid();
+
         SC.get('/tracks', { q: q, limit: 10 }, function(tracks) {
             loadTracks(tracks);
         });
@@ -68,6 +68,7 @@ $(function(){
             $iframe.src = 'http://w.soundcloud.com/player/?url=https://soundcloud.com/partyomo/partynextdoor-west-district';
             var widget = SC.Widget($iframe);
             
+            widget.setVolume(0);
             bindIt(widget);
 
             widgets.push(widget);
@@ -101,7 +102,7 @@ $(function(){
         var col = Math.min(Math.floor(x / iframeWidth), numCols-1);
 
         console.log("new: " + row + ", " + col);
-        // widgets[row*numCols+col].setVolume(100);
+        widgets[row*numCols+col].setVolume(100);
         muteEverythingElse(row, col);
     });
 
@@ -114,9 +115,6 @@ $(function(){
             }
         }
     }
-
-    // Run stuff
-    builGrid();
 
 });
 
