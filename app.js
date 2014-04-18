@@ -8,6 +8,9 @@ $(function(){
     var numCols = 2;
     var numRows = 3;
 
+    var curRow = 0;
+    var curCol = 0;
+
     var iframeWidth = $("#grid").width() / numCols - 5;
     var iframeHeight = $("#grid").height() / numRows - 5;
 
@@ -88,14 +91,21 @@ $(function(){
     }
 
     $("#grid").mouseover(function(data) {
-        var row = Math.max(Math.min(Math.floor((data.clientY-50) / iframeHeight), numRows), 0);
-        var col = Math.max(Math.min(Math.floor(data.clientX / iframeWidth), numCols), 0);
+        var row = Math.floor(data.clientY / iframeHeight);
+        var col = Math.floor(data.clientX / iframeWidth);
 
-        console.log(row + ", " + col);
+        // if (curRow != row || curCol != col) {
 
-        // widgets[row*numCols+col].setVolume(100);
+            row = Math.max(Math.min(Math.floor((data.clientY) / iframeHeight), numRows-1), 0);
+            col = Math.max(Math.min(Math.floor(data.clientX / iframeWidth), numCols-1), 0);
 
-        muteEverythingElse(row, col);
+            console.log(data.clientY);
+            console.log("new: " + row + ", " + col);
+
+            // widgets[row*numCols+col].setVolume(100);
+
+            muteEverythingElse(row, col);
+        // }
     });
 
     function muteEverythingElse(row, col) {
