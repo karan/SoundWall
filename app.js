@@ -26,8 +26,8 @@ $(function(){
     var builGrid = function() {
 
         var grid = $("#grid");
-        for (var i = 0; i < numCols; i++) {
-            for (var j = 0; j < numRows; j++) {
+        for (var i = 0; i < numRows; i++) {
+            for (var j = 0; j < numCols; j++) {
                 var iframe = $('<iframe/>').attr('id', 'widget'+i+j);
                 iframe.attr('frameborder', '0');
                 iframe.width(iframeWidth);
@@ -62,13 +62,12 @@ $(function(){
 
         for (var i = 0; i < iframes.length; i++) {
             var $iframe = iframes[i];
-            console.log($iframe);
             $iframe.src = 'http://w.soundcloud.com/player/?url=https://soundcloud.com/partyomo/partynextdoor-west-district';
             var widget = SC.Widget($iframe);
-            widget.setVolume(0);
-            widgets.push(widget);
+            
+            bindIt(widget);
 
-            console.log(tracks[i]);
+            widgets.push(widget);
 
             widget.load(tracks[i].uri, {
                 auto_play: true,
@@ -81,51 +80,32 @@ $(function(){
         }
     }
 
-    // takes a track from SoundCloud and plays it.
-    function playTrack(track) {
-        // ga('send', 'event', 'play', 'songPla');
-        cleanUpSpace();
-        console.log(track);
-        // update the iframe source
-        SC.get(track.uri, {}, function(sound, error) {
-          $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
+    function bindIt(widget) {
+        widget.bind(SC.Widget.Events.READY, function() {
+            console.log("setting volume to 0");
+            widget.setVolume(0);
         });
-        audioElem.play();
     }
 
-    // toggle play and paused state of audio player
-    var toggle = function() {
-        widget.toggle();
-    }
+    $("#grid").mouseover(function(data) {
+        var row = Math.floor(data.clientY / iframeHeight) - 1;
+        var col = Math.floor(data.clientX / iframeWidth);
 
-    // play the next song in queue and remove the track that
-    // is to be played.
-    var next = function() {
-        if (all_tracks.length != 0) {
-            var track = all_tracks.splice(0, 1)[0];
-            playTrack(track);
-        } else {
-            cleanUpSpace();
-            $('#error').append('No more songs. Try searching.');
-            $('#searchterm').focus();
+        console.log(row + ", " + col);
+
+        widgets[row*numCols+col].setVolume(100);
+
+        muteEverythingElse(row, col);
+    });
+
+    function muteEverythingElse(row, col) {
+        var iframes = $("iframe");
+
+        for (var i=0; i < iframes.length; i++) {
+            if (i != row*numCols+col) {
+                widgets[i].setVolume(0);
+            }
         }
-    }
-
-    var volumeUp = function() {
-        widget.getVolume(function(volume) {
-            widget.setVolume(Math.min(100, volume + 5));
-        });
-    }
-
-    var volumeDown = function() {
-        widget.getVolume(function(volume) {
-            widget.setVolume(Math.max(0, volume - 5));
-        });
-    }
-
-    var cleanUpSpace = function() {
-        $('#widget').empty();
-        $('#error').empty();
     }
 
     // Run stuff
