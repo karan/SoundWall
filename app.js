@@ -6,7 +6,7 @@ $(function(){
     var client_id = '5371eb9743a8c619876d4e967d558f82';
 
     var numCols = 2;
-    var numRows = 2;
+    var numRows = 3;
 
     var iframeWidth = $("#grid").width() / numCols - 5;
     var iframeHeight = $("#grid").height() / numRows - 5;
@@ -18,6 +18,10 @@ $(function(){
         client_id: client_id
     });
 
+
+    // when page first loads, search for this
+    addTracks("party");
+
     // build the grid of iframes
     var builGrid = function() {
 
@@ -25,6 +29,7 @@ $(function(){
         for (var i = 0; i < numCols; i++) {
             for (var j = 0; j < numRows; j++) {
                 var iframe = $('<iframe/>').attr('id', 'widget'+i+j);
+                iframe.attr('frameborder', '0');
                 iframe.width(iframeWidth);
                 iframe.height(iframeHeight);
                 grid.append(iframe);
@@ -40,7 +45,7 @@ $(function(){
 
             var q = $("#searchterm").val();
 
-            addTracks();
+            addTracks(q);
         }
 
     });
