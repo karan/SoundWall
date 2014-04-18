@@ -1,0 +1,108 @@
+html,body { height: 100%; margin: 0px; padding: 0px; }
+
+body {
+    background-color: #ffffff;
+    font-family: avenir, 'avenir next', helvetica, arial, sans-serif;
+    text-align: center;
+}
+
+*::-webkit-input-placeholder {
+    color: #aaa;
+}    
+*:-moz-placeholder {
+    color: #aaa;
+}
+*::-moz-placeholder {
+    color: #aaa;
+}    
+*:-ms-input-placeholder {
+    color: #aaa;
+}
+
+a {
+    color: #FF6600;
+}
+
+#container {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 0% 5%;
+    /*background-color: #DDD;*/
+    height: 100%;
+}
+
+#header {
+    margin-bottom: 30px;
+}
+
+#logo:before {
+    content: "scInstant";
+    font-size: 3.5em;
+}
+
+#logo {
+    font-weight: 100;
+    color: #FF6600;
+}
+
+#sharing {
+    /*width: 50%;*/
+    display: inline-block;
+}
+
+#sharing iframe {
+    vertical-align: middle;
+}
+
+.twitter-share-button {
+    float: left;
+}
+
+.fb-like {
+    float: right;
+}
+
+#artwork {
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#search {
+    bottom: 10px;
+}
+
+#app {
+    margin: 5% 10%;
+}
+
+#searchterm {
+    width: 80%;
+    max-width: 400px;
+    height: 20px;
+    font-size: 18px;
+    margin-top: 1px;
+    border-radius: 8px;
+    border: 0;
+    color: #111;
+    background: rgba(0,0,0,.1);
+    padding: 10px;
+    outline: 0px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.15), 
+                0 2px 4px rgba(0,0,0,.2) inset, 
+                0 0 12px rgba(255,255,255,.1);
+}
+
+#widget {
+    margin-top: 1em;
+    display:block;
+    border:0;
+}
+
+#error {
+    color: #FF4136;
+    font-weight: 600;
+    margin: 20px;
+}
