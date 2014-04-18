@@ -11,6 +11,8 @@ $(function(){
     var iframeWidth = $("#grid").width() / numCols - 5;
     var iframeHeight = $("#grid").height() / numRows - 5;
 
+    var widgets = [];
+
     // initialize the soundcloud app
     SC.initialize({
         client_id: client_id
@@ -28,7 +30,6 @@ $(function(){
                 grid.append(iframe);
             }
         }
-
     }
 
     // main function that handles searching
@@ -39,25 +40,31 @@ $(function(){
 
             var q = $("#searchterm").val();
 
-            search();
+            addTracks();
         }
 
     });
 
     // searches and plays a track
-    function search(q) {
+    function addTracks(q) {
         SC.get('/tracks', { q: q, limit: 10 }, function(tracks) {
-            console.log(tracks);
-            all_tracks = tracks;
-            loadTracks();
+            loadTracks(tracks);
         });
     }
 
-    function loadTracks() {
-        for (var i = 0; i < 4; i++) {
-            console.log(widgets[i]);
-            widgets.eq(i).load(all_tracks[i].uri, {
-                auto_play: true,
+    function loadTracks(tracks) {
+        var iframes = $("iframe");
+
+        for (var i = 0; i < iframes.length; i++) {
+            var $iframe = iframes[i];
+            console.log($iframe);
+            $iframe.src = 'http://w.soundcloud.com/player/?url=https://soundcloud.com/partyomo/partynextdoor-west-district';
+            widgets.push(SC.Widget($iframe));
+
+            console.log(tracks[i]);
+
+            widgets[i].load(tracks[i].uri, {
+                auto_play: false,
                 buying: false,
                 sharing: false,
                 show_playcount: false,
