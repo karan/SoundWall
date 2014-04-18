@@ -3,96 +3,67 @@ $(function(){
     $(document).height($(window).height());
 
     // SC api key
-    var client_id = '7182630dc6a6fc8aa606657648545826';
+    var client_id = '5371eb9743a8c619876d4e967d558f82';
 
-    // store all tracks after a search query
-    var all_tracks = [];
+    var numCols = 2;
+    var numRows = 2;
 
-    // timer to search only after a while
-    var timer;
-
-    // iframe that stores the SC player
-    var iframe = $("#widget")[0];
-
-    // the SC Widget object
-    var widget;
+    var iframeWidth = $("#grid").width() / numCols - 5;
+    var iframeHeight = $("#grid").height() / numRows - 5;
 
     // initialize the soundcloud app
     SC.initialize({
         client_id: client_id
     });
 
-    var audioElem = $("#widget")[0];
+    // build the grid of iframes
+    var builGrid = function() {
 
-    // keyboard shortcut bindings
-    $(document).keydown(function(e) {
-        // this won't work if search field is focussed
-        if (!$("#searchterm").is(':focus')) {
-            if (e.keyCode == 39) {
-                // right arrow key pressed, play next
-                next();
-            } else if (e.keyCode == 32) {
-                // space key to toggle playback
-                toggle();
-            } else if (e.shiftKey && e.keyCode == 38) {
-                // shift up
-                volumeUp();
-            } else if (e.shiftKey && e.keyCode == 40) {
-                // shift down
-                volumeDown();
+        var grid = $("#grid");
+        for (var i = 0; i < numCols; i++) {
+            for (var j = 0; j < numRows; j++) {
+                var iframe = $('<iframe/>').attr('id', 'widget'+i+j);
+                iframe.width(iframeWidth);
+                iframe.height(iframeHeight);
+                grid.append(iframe);
             }
         }
-    });
 
-    // bind events to the widget
-    // widget.bind(SC.Widget.Events.READY, function() {
-    //     // when the track finishes, play the next one
-    //     widget.bind(SC.Widget.Events.FINISH, function(e) {
-    //         next();
-    //     });
-    // });
+    }
 
     // main function that handles searching
-    $('#searchterm').keyup(function(event) {
+    $('#searchterm').keypress(function(event) {
 
-        event.preventDefault();
+        if (event.which == 13) {
+            event.preventDefault();
 
-        // google analytics
-        // ga('send', 'event', 'input', 'search');
+            var q = $("#searchterm").val();
 
-        var q = $("#searchterm").val();
-
-        // validate query
-        if (q == '' || q == undefined) {
-            return;
+            search();
         }
-
-        if (event.keyCode == 17 || event.keyCode == 18 || event.keyCode == 91 ||
-            event.keyCode == 9 || event.keyCode == 16) {
-            // control, option, command, tab, shift
-            return;
-        }
-
-        clearTimeout(timer);
-
-        timer = setTimeout(function() {
-            instaSearch(q);
-        }, 200); // wait for 200ms after search query
 
     });
 
     // searches and plays a track
-    function instaSearch(q) {
+    function search(q) {
         SC.get('/tracks', { q: q, limit: 10 }, function(tracks) {
-            if (tracks.length == 0) {
-                cleanUpSpace();
-                $('#error').append('No tracks found');
-            } else {
-                all_tracks = tracks;
-                var track = all_tracks.splice(0, 1)[0];
-                playTrack(track);
-            }
+            console.log(tracks);
+            all_tracks = tracks;
+            loadTracks();
         });
+    }
+
+    function loadTracks() {
+        for (var i = 0; i < 4; i++) {
+            console.log(widgets[i]);
+            widgets.eq(i).load(all_tracks[i].uri, {
+                auto_play: true,
+                buying: false,
+                sharing: false,
+                show_playcount: false,
+                show_comments: false
+            });
+        }
     }
 
     // takes a track from SoundCloud and plays it.
@@ -104,13 +75,7 @@ $(function(){
         SC.get(track.uri, {}, function(sound, error) {
           $('#widget').attr('src', sound.stream_url + '?client_id=' + client_id);
         });
-
-        $("#artwork").css("background", "url(" + track.artwork_url.replace("large", "original") + ") no-repeat center center fixed")
-
-        // set the title of the track
-        $('#trackname').text(track.title);
-
-        // console.log("loaded " + track.title);
+        audioElem.play();
     }
 
     // toggle play and paused state of audio player
@@ -147,6 +112,9 @@ $(function(){
         $('#widget').empty();
         $('#error').empty();
     }
+
+    // Run stuff
+    builGrid();
 
 });
 
