@@ -91,21 +91,18 @@ $(function(){
     }
 
     $("#grid").mouseover(function(data) {
-        var row = Math.floor(data.clientY / iframeHeight);
-        var col = Math.floor(data.clientX / iframeWidth);
 
-        // if (curRow != row || curCol != col) {
+        var x = data.clientX;
+        var y = data.clientY - $("#search").height();
 
-            row = Math.max(Math.min(Math.floor((data.clientY) / iframeHeight), numRows-1), 0);
-            col = Math.max(Math.min(Math.floor(data.clientX / iframeWidth), numCols-1), 0);
+        console.log("x, y = " + x + ", " + y);
 
-            console.log(data.clientY);
-            console.log("new: " + row + ", " + col);
+        var row = Math.max(Math.min(Math.floor(y / iframeHeight), numRows-1), 0);
+        var col = Math.min(Math.floor(x / iframeWidth), numCols-1);
 
-            // widgets[row*numCols+col].setVolume(100);
-
-            muteEverythingElse(row, col);
-        // }
+        console.log("new: " + row + ", " + col);
+        // widgets[row*numCols+col].setVolume(100);
+        muteEverythingElse(row, col);
     });
 
     function muteEverythingElse(row, col) {
