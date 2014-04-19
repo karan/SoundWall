@@ -2,8 +2,6 @@ $(function(){
 
     $(document).height($(window).height());
 
-    // $("#grid").css("margin-top", $("#header").height());
-
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
 
@@ -25,7 +23,7 @@ $(function(){
 
 
     // when page first loads, search for this
-    addTracks("party");
+    // addTracks("party");
 
     // build the grid of iframes
     function builGrid() {

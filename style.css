@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Rock+Salt);
+
 html,body { height: 100%; margin: 0px; padding: 0px; }
 
 body {
@@ -20,7 +22,7 @@ body {
 }
 
 a {
-    color: #FF6600;
+    color: #404040;
 }
 
 #grid {
@@ -39,21 +41,18 @@ a {
 
 #header {
     display: block;
-    /*height: 50px;*/
 }
 
 #logo:before {
     content: "SoundWall";
-    color: #FF6600;
-    font-size: 2.3em;
-    font-weight: 300;
-    text-align: left;
+    color: #404040;
+    font-size: 2.5em;
+    font-family: 'Rock Salt', cursive;
 }
 
 #logo {
     vertical-align: middle;
     font-size: 1em;
-    padding: 0;
 }
 
 .btn-circle {
@@ -103,4 +102,14 @@ a {
 
 iframe.github-button {
     padding: 0;
+}
+
+.mute, .unmute {
+    font-size: 2em;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.mute:hover, .unmute:hover {
+    text-decoration: none;
 }
