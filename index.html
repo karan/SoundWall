@@ -10,24 +10,36 @@
     <script src="//connect.soundcloud.com/sdk.js"></script>
     <script src="http://w.soundcloud.com/player/api.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="header">
-      <div id="logo"></div>
-      <div id="search">
-        <input id="searchterm" type="text" autofocus placeholder="Search to get started..." />
-      </div>
-      <div id="stuff">
-        <p>Hello</p>
-      </div>
+  <div id="fb-root"></div>
+
+  <div id="header" class="row">
+    <div id="logo" class="col-md-2 col-md-offset-1">
+      <a href="#" class="btn btn-default btn-circle">?</a>
     </div>
-    
-    <div id="grid"></div>
+    <div id="search" class="col-md-4">
+      <input id="searchterm" type="text" autofocus placeholder="Search to get started..." />
+    </div>
+    <div class="controls col-md-1">
+      <a href="#" class="mute col-md-6"><i class="fa fa-volume-off fa-2x"></i></a>
+      <a href="#" class="unmute col-md-6"><i class="fa fa-volume-up fa-2x"></i></a>
+    </div>
+    <div id="stuff" class="col-md-4">
+      <iframe src="http://ghbtns.com/github-btn.html?user=karan&repo=scInstant&type=watch&count=true" height="20" width="90" frameborder="0" scrolling="0" class="github-button col-md-3"></iframe>
+      <a href="https://twitter.com/share" class="twitter-share-button col-md-3" data-url="http://karan.github.io/SoundWall" data-text="SoundWall is an amazing way to discover new music." data-via="TheKaranGoel">Tweet</a>
+      <div class="fb-share-button col-md-3" data-href="http://karan.github.io/SoundWall" data-width="60" data-type="button_count"></div>
+    </div>
+  </div>
+  
+  <div id="grid"></div>
 
 </body>
-<!-- 
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,12 +52,12 @@
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=168011399915297";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
- -->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151402154950686";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ 
 </html>

@@ -2,6 +2,8 @@ $(function(){
 
     $(document).height($(window).height());
 
+    // $("#grid").css("margin-top", $("#header").height());
+
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
 
@@ -31,6 +33,7 @@ $(function(){
         for (var i = 0; i < numRows; i++) {
             for (var j = 0; j < numCols; j++) {
                 var iframe = $('<iframe/>').attr('id', 'widget'+i+j);
+                iframe.addClass("song");
                 iframe.attr('frameborder', '0');
                 iframe.width(iframeWidth);
                 iframe.height(iframeHeight);
@@ -41,7 +44,7 @@ $(function(){
 
     // reset the state of DOM
     function cleanUp() {
-        $("iframe").remove();
+        $(".song").remove();
         widgets = [];
         var curRow = 0;
         var curCol = 0;
@@ -70,7 +73,7 @@ $(function(){
 
     // loads the tracks into iframes
     function loadTracks(tracks) {
-        var iframes = $("iframe");
+        var iframes = $(".song");
 
         for (var i = 0; i < iframes.length; i++) {
             var $iframe = iframes[i];
@@ -106,27 +109,36 @@ $(function(){
         var x = data.clientX;
         var y = data.clientY - $("#search").height();
 
-        console.log("x, y = " + x + ", " + y);
-
         var row = Math.max(Math.min(Math.floor(y / iframeHeight), numRows-1), 0);
         var col = Math.min(Math.floor(x / iframeWidth), numCols-1);
 
-        console.log("new: " + row + ", " + col);
         widgets[row*numCols+col].setVolume(100);
+
         muteEverythingElse(row, col);
+
+        curRow = row;
+        curCol = col;
+    });
+
+    $(".mute").mouseover(function(data) {
+        muteEverythingElse(-1, -1);
+    });
+
+    $(".unmute").mouseover(function(data) {
+        muteEverythingElse(curRow, curCol);
     });
 
     // mutes all widgets except the one denoted by (row, col)
     function muteEverythingElse(row, col) {
-        var iframes = $("iframe");
+        var iframes = $(".song");
 
         for (var i=0; i < iframes.length; i++) {
             if (i != row*numCols+col) {
                 widgets[i].setVolume(0);
             }
         }
+
+        widgets[row*numCols+col].setVolume(100);
     }
 
 });
-
-

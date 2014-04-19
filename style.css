@@ -25,48 +25,60 @@ a {
 
 #grid {
     width: 100%;
-    height: calc(100% - 50px);
+    height: calc(100%);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 
-iframe {
+#grid > iframe {
     margin: 0px;
     padding: 0px;
 }
 
 #header {
     display: block;
-    height: 50px;
-    padding: 0 5%;
-    background-color: #111;
+    /*height: 50px;*/
 }
 
 #logo:before {
     content: "SoundWall";
     color: #FF6600;
-}
-#logo {
-    display: inline-block;
-    font-size: 2.2em;
-    font-weight: 100;
-    width: 20%;
+    font-size: 2.3em;
+    font-weight: 300;
     text-align: left;
+}
+
+#logo {
     vertical-align: middle;
+    font-size: 1em;
+    padding: 0;
+}
+
+.btn-circle {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 13px;
+    line-height: 1.42;
+    border-radius: 50%;
 }
 
 #search {
-    width: 50%;
-    display: inline-block;
     vertical-align: middle;
+    height: 50px;
 }
 
 #searchterm {
-    width: 100%;
+    width: 90%;
     max-width: 400px;
-    height: 18px;
+    margin-top: 5px;
+    height: 40px;
     font-size: 18px;
     border-radius: 8px;
     border: 0;
@@ -80,6 +92,15 @@ iframe {
 }
 
 #stuff {
+    height: 50px;
+}
+
+.twitter-share-button, .fb-share-button, .github-button {
+    margin-top: 3%;
+    vertical-align: middle;
     display: inline-block;
-    width: 20%;
+}
+
+iframe.github-button {
+    padding: 0;
 }
