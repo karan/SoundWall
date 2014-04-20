@@ -23,7 +23,7 @@ $(function(){
 
 
     // when page first loads, search for this
-    // addTracks("party");
+    addTracks("party");
 
     // build the grid of iframes
     function builGrid() {
