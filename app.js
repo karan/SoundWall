@@ -55,7 +55,7 @@ $(function(){
 
     // main function that handles searching
     $('#searchterm').keypress(function(event) {
-
+        event.preventDefault();
         if (event.which == 13) {
             event.preventDefault();
             var q = $("#searchterm").val();
@@ -65,11 +65,12 @@ $(function(){
     });
 
     $(document).keypress(function(event) {
+        event.preventDefault();
         if (event.shiftKey && event.which == 76) {
             // control key pressed, pause the state
             locked = !locked;
         }
-    })
+    });
 
     // resets the grid, make a new one, searches for songs
     function addTracks(q) {
@@ -117,8 +118,10 @@ $(function(){
     }
 
     // handle cursor movement
-    $(document).mouseover(function(data) {
+    $("#grid").mouseover(function(data) {
         if (!locked && !allMuted) {
+            console.log("all unlocked and not muted");
+            console.log(curRow + " " + curCol);            
             // song is not locked, and mute button is not active
             // in this case, we change the current mute status
             // based on hover
@@ -136,8 +139,17 @@ $(function(){
             curRow = row;
             curCol = col;
         } else if (allMuted && locked) {
+            console.log("all locked and all muted");
+            console.log(curRow + " " + curCol);
             // everything is muted and one song was locked
             // so we make the locked one play
+            muteEverythingElse(curRow, curCol);
+            allMuted = false;
+        } else if (!locked && allMuted) {
+            console.log("all muted and not locked");
+            console.log(curRow + " " + curCol);
+            // nothing was locked but everything was muted,
+            // so we unmute the last playing track
             muteEverythingElse(curRow, curCol);
             allMuted = false;
         }
