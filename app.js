@@ -118,7 +118,10 @@ $(function(){
 
     // handle cursor movement
     $("#grid").mouseover(function(data) {
-        if (!locked) {
+        if (!locked && !allMuted) {
+            // song is not locked, and mute button is not active
+            // in this case, we change the current mute status
+            // based on hover
             var x = data.clientX;
             var y = data.clientY - $("#search").height();
 
@@ -132,7 +135,9 @@ $(function(){
 
             curRow = row;
             curCol = col;
-        } else if (allMuted) {
+        } else if (allMuted && locked) {
+            // everything is muted and one song was locked
+            // so we make the locked one play
             muteEverythingElse(curRow, curCol);
             allMuted = false;
         }
