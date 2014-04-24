@@ -15,6 +15,7 @@ $(function(){
     var iframeHeight = $("#grid").height() / numRows - 5;
 
     var widgets = [];
+    var iframes = [];
 
     // initialize the soundcloud app
     SC.initialize({
@@ -36,6 +37,7 @@ $(function(){
                 iframe.width(iframeWidth);
                 iframe.height(iframeHeight);
                 grid.append(iframe);
+                iframes.push(iframe);
             }
         }
     }
@@ -85,10 +87,13 @@ $(function(){
             widget.load(tracks[i].uri, {
                 auto_play: true,
                 buying: false,
+                liking: false,
                 sharing: false,
                 show_playcount: false,
                 show_comments: false,
-                single_active: false
+                single_active: false,
+                show_user: false,
+                show_bpm: false
             });
         }
     }
@@ -111,6 +116,7 @@ $(function(){
         var col = Math.min(Math.floor(x / iframeWidth), numCols-1);
 
         widgets[row*numCols+col].setVolume(100);
+        iframes[row*numCols+col].addClass("active");
 
         muteEverythingElse(row, col);
 
@@ -133,6 +139,9 @@ $(function(){
         for (var i=0; i < iframes.length; i++) {
             if (i != row*numCols+col) {
                 widgets[i].setVolume(0);
+                if (iframes.eq(i).hasClass("active")) {
+                    iframes.eq(i).removeClass("active");
+                }
             }
         }
 

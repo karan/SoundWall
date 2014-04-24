@@ -113,3 +113,7 @@ iframe.github-button {
 .mute:hover, .unmute:hover {
     text-decoration: none;
 }
+
+.active {
+    border: 2px solid #01FF70;
+}
