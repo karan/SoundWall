@@ -104,7 +104,11 @@ iframe.github-button {
     padding: 0;
 }
 
-.mute, .unmute {
+.controls a:hover {
+    text-decoration: none;
+}
+
+.mute {
     font-size: 2em;
     text-decoration: none;
     margin-top: 10px;
@@ -116,4 +120,8 @@ iframe.github-button {
 
 .active {
     border: 2px solid #01FF70;
+}
+
+.allMuted {
+    color: #FF4136;
 }

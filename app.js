@@ -17,6 +17,9 @@ $(function(){
     var widgets = [];
     var iframes = [];
 
+    var locked = false; // if true, mouseover event will not work
+    var allMuted = false; // true if all are muted
+
     // initialize the soundcloud app
     SC.initialize({
         client_id: client_id
@@ -60,6 +63,13 @@ $(function(){
         }
 
     });
+
+    $(document).keypress(function(event) {
+        if (event.shiftKey && event.which == 76) {
+            // control key pressed, pause the state
+            locked = !locked;
+        }
+    })
 
     // resets the grid, make a new one, searches for songs
     function addTracks(q) {
@@ -108,28 +118,38 @@ $(function(){
 
     // handle cursor movement
     $("#grid").mouseover(function(data) {
+        if (!locked) {
+            var x = data.clientX;
+            var y = data.clientY - $("#search").height();
 
-        var x = data.clientX;
-        var y = data.clientY - $("#search").height();
+            var row = Math.max(Math.min(Math.floor(y / iframeHeight), numRows-1), 0);
+            var col = Math.min(Math.floor(x / iframeWidth), numCols-1);
 
-        var row = Math.max(Math.min(Math.floor(y / iframeHeight), numRows-1), 0);
-        var col = Math.min(Math.floor(x / iframeWidth), numCols-1);
+            widgets[row*numCols+col].setVolume(100);
+            iframes[row*numCols+col].addClass("active");
 
-        widgets[row*numCols+col].setVolume(100);
-        iframes[row*numCols+col].addClass("active");
+            muteEverythingElse(row, col);
 
-        muteEverythingElse(row, col);
-
-        curRow = row;
-        curCol = col;
+            curRow = row;
+            curCol = col;
+        } else if (allMuted) {
+            muteEverythingElse(curRow, curCol);
+            allMuted = false;
+        }
     });
 
-    $(".mute").mouseover(function(data) {
-        muteEverythingElse(-1, -1);
-    });
-
-    $(".unmute").mouseover(function(data) {
-        muteEverythingElse(curRow, curCol);
+    // when mute button is clicked
+    $(".mute").click(function(data) {
+        if (allMuted) {
+            // everything was muted, so unmute current one
+            muteEverythingElse(curRow, curRow);
+            $(".mute").removeClass("allMuted");
+        } else {
+            // mute everything
+            muteEverythingElse(-1, -1);
+            $(".mute").addClass("allMuted");
+        }
+        allMuted = !allMuted;
     });
 
     // mutes all widgets except the one denoted by (row, col)
@@ -142,10 +162,11 @@ $(function(){
                 if (iframes.eq(i).hasClass("active")) {
                     iframes.eq(i).removeClass("active");
                 }
+            } else {
+                iframes.eq(i).addClass("active");
+                widgets[i].setVolume(100);
             }
         }
-
-        widgets[row*numCols+col].setVolume(100);
     }
 
 });
