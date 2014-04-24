@@ -108,20 +108,22 @@ iframe.github-button {
     text-decoration: none;
 }
 
-.mute {
-    font-size: 2em;
+a.mute {
+    font-size: 2.5em;
     text-decoration: none;
     margin-top: 10px;
+    color: #AAAAAA;
 }
 
-.mute:hover, .unmute:hover {
+a.mute:hover {
     text-decoration: none;
+    color: #AAAAAA;
 }
 
-.active {
-    border: 2px solid #01FF70;
+a.allMuted {
+    color: #FF4136;
 }
 
-.allMuted {
+a.allMuted:hover {
     color: #FF4136;
 }
