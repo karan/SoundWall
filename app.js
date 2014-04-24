@@ -117,7 +117,7 @@ $(function(){
     }
 
     // handle cursor movement
-    $("#grid").mouseover(function(data) {
+    $(document).mouseover(function(data) {
         if (!locked && !allMuted) {
             // song is not locked, and mute button is not active
             // in this case, we change the current mute status

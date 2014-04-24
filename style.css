@@ -108,6 +108,10 @@ iframe.github-button {
     text-decoration: none;
 }
 
+.active {
+    border: 2px dashed #FFDC00;
+}
+
 a.mute {
     font-size: 2.5em;
     text-decoration: none;
