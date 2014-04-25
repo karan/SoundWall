@@ -28,7 +28,19 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          'dist/js/app.min.js': 'js/app.js'
+          'dist/js/app.min.js': ['js/vendor/sdk.js', 'js/vendor/api.js', 'js/vendor/alertify.min.js', 'js/app.js']
+        }
+      }
+    },
+
+    // configure cssmin to minify css files ------------------------------------
+    cssmin: {
+      options: {
+        banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
+      },
+      build: {
+        files: {
+          'dist/css/style.min.css': ['css/vendor/alertify.core.css', 'css/vendor/alertify.default.css', 'css/style.css']
         }
       }
     }
