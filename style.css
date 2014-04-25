@@ -131,3 +131,34 @@ a.allMuted {
 a.allMuted:hover {
     color: #FF4136;
 }
+
+.share {
+    display: inline-block;
+    color: #FFF;
+    font-size: 32px;
+    padding-top: 7px;
+    height: 50px;
+    /*margin-bottom: 10px;*/
+    /*margin-top: 10px;*/
+    vertical-align: middle;
+    width: 80px;
+    /*border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;*/
+}
+
+.share:hover {
+    opacity: 0.7;
+}
+
+.sbg-facebook {
+    background: #3971B6;
+}
+
+.sbg-twitter {
+    background: #A0D6E2;
+}
+
+.sbg-github {
+    background: #333333;
+}
