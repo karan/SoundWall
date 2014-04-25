@@ -2,16 +2,14 @@ $(function(){
 
     $(document).height($(window).height());
 
-    alertify.success('Hover to unmute player. Use <code>Shift + L</code> to lock and unlock current player.');
-
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
 
     var numCols = 2;
     var numRows = 3;
 
-    var curRow = 0;
-    var curCol = 0;
+    var curRow = -1;
+    var curCol = -1;
 
     var iframeWidth = $("#grid").width() / numCols - 5;
     var iframeHeight = $("#grid").height() / numRows - 25;
@@ -58,6 +56,7 @@ $(function(){
     // main function that handles searching
     $('#searchterm').keypress(function(event) {
         if (event.which == 13) {
+            ga('send', 'event', 'input', 'search');
             event.preventDefault();
             var q = $("#searchterm").val();
             addTracks(q);
@@ -73,19 +72,22 @@ $(function(){
     }
 
     $(window).keypress(function(event) {
+        ga('send', 'event', 'input', 'locking');
         handleLocking(event);
     });
     
-    // $(document.getElementsByTagName('iframe').contentWindow.document).keypress(function(event) {
-    //     handleLocking(event);
-    // });
-
     // resets the grid, make a new one, searches for songs
     function addTracks(q) {
         cleanUp();
         builGrid();
 
-        SC.get('/tracks', { q: q, limit: 10 }, function(tracks) {
+        alertify.success('Hover to unmute player. Use <code>Shift + L</code> to lock and unlock current player.', 10000);
+
+        SC.get('/tracks', { q: q, limit: 5*numCols*numRows }, function(tracks) {
+            // now we randomize the tracks
+            tracks.sort(function() { 
+                return 0.5 - Math.random(); 
+            });
             loadTracks(tracks);
         });
     }
@@ -127,6 +129,7 @@ $(function(){
     // handle cursor movement
     $("#grid").mouseover(function(data) {
         if (!locked) {
+            ga('send', 'event', 'input', 'playtrack');
             // song is not locked, we change the current mute status
             // based on hover
             var x = data.clientX;
@@ -149,7 +152,17 @@ $(function(){
     function muteEverythingElse(row, col) {
         var iframes = $(".song");
 
-        for (var i=0; i < iframes.length; i++) {
+        var i;
+        if (row < 0 || col < 0) {
+            for (i = 0; i < iframes.length; i++) {
+                if (iframes.eq(i).hasClass("active")) {
+                    iframes.eq(i).removeClass("active");
+                }
+            }
+            return;
+        }
+
+        for (i = 0; i < iframes.length; i++) {
             if (i != row*numCols+col) {
                 widgets[i].setVolume(0);
                 if (iframes.eq(i).hasClass("active")) {
