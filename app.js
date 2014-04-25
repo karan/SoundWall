@@ -18,7 +18,7 @@ $(function(){
     var iframes = [];
 
     var locked = false; // if true, mouseover event will not work
-    var allMuted = true; // true if all are muted
+    // var allMuted = true; // true if all are muted
 
     // initialize the soundcloud app
     SC.initialize({
@@ -31,8 +31,8 @@ $(function(){
     // build the grid of iframes
     function builGrid() {
         locked = false;
-        allMuted = true;
-        $(".mute").addClass("allMuted");
+        // allMuted = true;
+        // $(".mute").addClass("allMuted");
 
         var grid = $("#grid");
         for (var i = 0; i < numRows; i++) {
@@ -104,8 +104,7 @@ $(function(){
                 show_playcount: false,
                 show_comments: false,
                 single_active: false,
-                show_user: false,
-                show_bpm: false
+                show_user: false
             });
         }
     }
@@ -120,8 +119,7 @@ $(function(){
 
     // handle cursor movement
     $("#grid").mouseover(function(data) {
-        if (!locked && !allMuted) {
-            console.log("right now all is locked and muted");
+        if (!locked) {
             // song is not locked, and mute button is not active
             // in this case, we change the current mute status
             // based on hover
@@ -138,27 +136,21 @@ $(function(){
 
             curRow = row;
             curCol = col;
-        } else if (allMuted && locked) {
-            // everything is muted and one song was locked
-            // so we make the locked one play
-            console.log(curRow, curRow);
-            muteEverythingElse(curRow, curCol);
-            allMuted = false;
         }
     });
 
     // when mute button is clicked
-    $(".mute").click(function(data) {
-        if (allMuted) {
-            // everything was muted, so unmute current one
-            muteEverythingElse(curRow, curRow);
-        } else {
-            // mute everything
-            muteEverythingElse(-1, -1);
-        }
-        $(".mute").toggleClass("allMuted");
-        allMuted = !allMuted;
-    });
+    // $(".mute").click(function(data) {
+    //     if (allMuted) {
+    //         // everything was muted, so unmute current one
+    //         muteEverythingElse(curRow, curRow);
+    //     } else {
+    //         // mute everything
+    //         muteEverythingElse(-1, -1);
+    //     }
+    //     $(".mute").toggleClass("allMuted");
+    //     allMuted = !allMuted;
+    // });
 
     // mutes all widgets except the one denoted by (row, col)
     function muteEverythingElse(row, col) {
