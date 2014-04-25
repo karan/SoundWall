@@ -10,10 +10,13 @@
     <script src="//connect.soundcloud.com/sdk.js"></script>
     <script src="http://w.soundcloud.com/player/api.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="alertify.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="alertify.core.css">
+    <link rel="stylesheet" href="alertify.default.css">
 </head>
 <body>
 
@@ -26,12 +29,8 @@
     </div>
     
     <div id="search" class="col-md-4">
-      <input id="searchterm" type="text" autofocus placeholder="Search to get started..." />
+      <input id="searchterm" type="text" autofocus placeholder="Search for an artist or song..." />
     </div>
-    
-    <!-- <div class="controls col-md-1">
-      <a href="#" class="mute allMuted col-md-6 glyphicon glyphicon-volume-off"></a>
-    </div> -->
     
     <div id="stuff" class="col-md-3">
       <a href="http://github.com/karan/SoundWall" target="_blank"><span class="fa fa-github share sbg-github"></span></a>
@@ -45,28 +44,30 @@
 
   <div id='help-modal' class="modal fade" tabindex="-1" role="dialog" aria-labelledby="help-modalLabel" aria-hidden="true">
     <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="help-modalLabel">SoundCloud Wall</h4>
-      </div>
-      <div class="modal-body">
-        <p>SoundCloud Wall is a project by <a href="http://www.goel.im" target="_blank">Karan Goel</a> that aims to provide a <b>faster way to discover new music</b>.</p>
-        <p>To get started, search for an artist or a song, and hover over a player to unmute only that player.</p>
-        <p>If you like SoundCloud Wall, please consider sharing it with your friends and help me make it viral.</p>
-        <p>If you have any questions or suggestions, feel free to <a href="http://twitter.com/TheKaranGoel" target="_blank">tweet to me</a> or <a href="mailto:karan@goel.im">email me</a>.</p>
-        <a href="http://github.com/karan/SoundWall" target="_blank"><span class="fa fa-github share sbg-github"></span></a>
-        <a href="https://twitter.com/intent/tweet?text=SoundCloud+Wall&amp;url=http://karan.github.io/SoundWall&amp;via=TheKaranGoel"><span class="fa fa-twitter share sbg-twitter"></span></a>
-        <a href="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog','width=626,height=436');return false;"><span class="fa fa-facebook share sbg-facebook"></span></a>
-      </div>
-      <div class="modal-footer">
-        <p>Also checkout <a href="http://karan.github.io/scInstant/" target="_blank">SoundCloud Instant</a>.</p>
-        <p><a href="http://eepurl.com/SRIPT" target="_blank">Get notified when I make something new and cool.</a></p>
-        <small>Inspired by <a href="https://github.com/grant/vidwall" target="_blank">VidWall</a></small>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="help-modalLabel">SoundCloud Wall</h4>
+        </div>
+        <div class="modal-body">
+          <p>SoundCloud Wall is a project by <a href="http://www.goel.im" target="_blank">Karan Goel</a> that aims to provide a <b>faster way to discover new music</b>.</p>
+          <p>To get started, search for an artist or a song, and hover over a player to unmute only that player. To lock or unlock a playing song, use the keyboard shortcut <code>Shift + L</code></p>
+          <p>If you like SoundCloud Wall, please consider sharing it with your friends and help me make it viral.</p>
+          <p>If you have any questions or suggestions, feel free to <a href="http://twitter.com/TheKaranGoel" target="_blank">tweet to me</a> or <a href="mailto:karan@goel.im">email me</a>.</p>
+          <a href="http://github.com/karan/SoundWall" target="_blank"><span class="fa fa-github share sbg-github"></span></a>
+          <a href="https://twitter.com/intent/tweet?text=SoundCloud+Wall&amp;url=http://karan.github.io/SoundWall&amp;via=TheKaranGoel"><span class="fa fa-twitter share sbg-twitter"></span></a>
+          <a href="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog','width=626,height=436');return false;"><span class="fa fa-facebook share sbg-facebook"></span></a>
+        </div>
+        <div class="modal-footer">
+          <p>Also checkout <a href="http://karan.github.io/scInstant/" target="_blank">SoundCloud Instant</a>.</p>
+          <p><a href="http://eepurl.com/SRIPT" target="_blank">Get notified when I make something new and cool.</a></p>
+          <small>Inspired by <a href="https://github.com/grant/vidwall" target="_blank">VidWall</a></small>
+        </div>
       </div>
     </div>
   </div>
-  </div>
+
+  <div class="alert">Quick tip: Use <code>Shift + L</code> to lock and unlock current player.</div>
 
 </body>
 
@@ -80,14 +81,4 @@
   ga('send', 'pageview');
 </script>
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151402154950686";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
- 
 </html>

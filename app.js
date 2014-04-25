@@ -2,6 +2,8 @@ $(function(){
 
     $(document).height($(window).height());
 
+    alertify.success('Hover to unmute player. Use <code>Shift + L</code> to lock and unlock current player.');
+
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
 
@@ -18,7 +20,6 @@ $(function(){
     var iframes = [];
 
     var locked = false; // if true, mouseover event will not work
-    // var allMuted = true; // true if all are muted
 
     // initialize the soundcloud app
     SC.initialize({
@@ -26,13 +27,11 @@ $(function(){
     });
 
     // when page first loads, search for this
-    addTracks("party");
+    addTracks("armin van buuren");
 
     // build the grid of iframes
     function builGrid() {
         locked = false;
-        // allMuted = true;
-        // $(".mute").addClass("allMuted");
 
         var grid = $("#grid");
         for (var i = 0; i < numRows; i++) {
@@ -66,12 +65,20 @@ $(function(){
 
     });
 
-    $(document).keypress(function(event) {
+    function handleLocking(event) {
         if (event.shiftKey && event.which == 76) {
             // control key pressed, pause the state
             locked = !locked;
         }
+    }
+
+    $(window).keypress(function(event) {
+        handleLocking(event);
     });
+    
+    // $(document.getElementsByTagName('iframe').contentWindow.document).keypress(function(event) {
+    //     handleLocking(event);
+    // });
 
     // resets the grid, make a new one, searches for songs
     function addTracks(q) {
@@ -120,8 +127,7 @@ $(function(){
     // handle cursor movement
     $("#grid").mouseover(function(data) {
         if (!locked) {
-            // song is not locked, and mute button is not active
-            // in this case, we change the current mute status
+            // song is not locked, we change the current mute status
             // based on hover
             var x = data.clientX;
             var y = data.clientY - $("#search").height();
@@ -138,19 +144,6 @@ $(function(){
             curCol = col;
         }
     });
-
-    // when mute button is clicked
-    // $(".mute").click(function(data) {
-    //     if (allMuted) {
-    //         // everything was muted, so unmute current one
-    //         muteEverythingElse(curRow, curRow);
-    //     } else {
-    //         // mute everything
-    //         muteEverythingElse(-1, -1);
-    //     }
-    //     $(".mute").toggleClass("allMuted");
-    //     allMuted = !allMuted;
-    // });
 
     // mutes all widgets except the one denoted by (row, col)
     function muteEverythingElse(row, col) {
