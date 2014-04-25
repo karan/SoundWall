@@ -12,19 +12,18 @@ $(function(){
     var curCol = 0;
 
     var iframeWidth = $("#grid").width() / numCols - 5;
-    var iframeHeight = $("#grid").height() / numRows - 5;
+    var iframeHeight = $("#grid").height() / numRows - 25;
 
     var widgets = [];
     var iframes = [];
 
     var locked = false; // if true, mouseover event will not work
-    var allMuted = false; // true if all are muted
+    var allMuted = true; // true if all are muted
 
     // initialize the soundcloud app
     SC.initialize({
         client_id: client_id
     });
-
 
     // when page first loads, search for this
     addTracks("party");
@@ -49,13 +48,12 @@ $(function(){
     function cleanUp() {
         $(".song").remove();
         widgets = [];
-        var curRow = 0;
-        var curCol = 0;
+        var curRow = -1;
+        var curCol = -1;
     }
 
     // main function that handles searching
     $('#searchterm').keypress(function(event) {
-        event.preventDefault();
         if (event.which == 13) {
             event.preventDefault();
             var q = $("#searchterm").val();
@@ -65,7 +63,6 @@ $(function(){
     });
 
     $(document).keypress(function(event) {
-        event.preventDefault();
         if (event.shiftKey && event.which == 76) {
             // control key pressed, pause the state
             locked = !locked;
@@ -120,8 +117,7 @@ $(function(){
     // handle cursor movement
     $("#grid").mouseover(function(data) {
         if (!locked && !allMuted) {
-            console.log("all unlocked and not muted");
-            console.log(curRow + " " + curCol);            
+            console.log("right now all is locked and muted");
             // song is not locked, and mute button is not active
             // in this case, we change the current mute status
             // based on hover
@@ -139,17 +135,9 @@ $(function(){
             curRow = row;
             curCol = col;
         } else if (allMuted && locked) {
-            console.log("all locked and all muted");
-            console.log(curRow + " " + curCol);
             // everything is muted and one song was locked
             // so we make the locked one play
-            muteEverythingElse(curRow, curCol);
-            allMuted = false;
-        } else if (!locked && allMuted) {
-            console.log("all muted and not locked");
-            console.log(curRow + " " + curCol);
-            // nothing was locked but everything was muted,
-            // so we unmute the last playing track
+            console.log(curRow, curRow);
             muteEverythingElse(curRow, curCol);
             allMuted = false;
         }
@@ -160,12 +148,11 @@ $(function(){
         if (allMuted) {
             // everything was muted, so unmute current one
             muteEverythingElse(curRow, curRow);
-            $(".mute").removeClass("allMuted");
         } else {
             // mute everything
             muteEverythingElse(-1, -1);
-            $(".mute").addClass("allMuted");
         }
+        $(".mute").toggleClass("allMuted");
         allMuted = !allMuted;
     });
 

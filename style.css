@@ -46,7 +46,7 @@ a {
 #logo:before {
     content: "SoundWall";
     color: #404040;
-    font-size: 2.5em;
+    font-size: 2.1em;
     font-family: 'Rock Salt', cursive;
 }
 
@@ -109,7 +109,7 @@ iframe.github-button {
 }
 
 .active {
-    border: 2px dashed #FFDC00;
+    border: 2px solid #01FF70;
 }
 
 a.mute {
