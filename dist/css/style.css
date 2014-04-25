@@ -1,0 +1,180 @@
+@import url(http://fonts.googleapis.com/css?family=Rock+Salt);
+
+html,body { height: 100%; margin: 0px; padding: 0px; }
+
+body {
+    background-color: #111111;
+    font-family: avenir, 'avenir next', helvetica, arial, sans-serif;
+    text-align: center;
+}
+
+*::-webkit-input-placeholder {
+    color: #aaa;
+}    
+*:-moz-placeholder {
+    color: #aaa;
+}
+*::-moz-placeholder {
+    color: #aaa;
+}    
+*:-ms-input-placeholder {
+    color: #aaa;
+}
+
+a {
+    color: #AAAAAA;
+}
+
+p {
+    font-size: 1.3em;
+    line-height: 1.7em;
+}
+
+#grid {
+    width: 100%;
+    height: calc(100%);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#grid > iframe {
+    margin: 0px;
+    padding: 0px;
+}
+
+#header {
+    display: block;
+}
+
+@-webkit-keyframes blink-logo {
+  0%   { color: #FFFFFF; }
+  100% { color: #DDDDDD; }
+}
+@-moz-keyframes blink-logo {
+  0%   { color: #FFFFFF; }
+  100% { color: #DDDDDD; }
+}
+@-o-keyframes blink-logo {
+  0%   { color: #FFFFFF; }
+  100% { color: #DDDDDD; }
+}
+@keyframes blink-logo {
+  0%   { color: #FFFFFF; }
+  100% { color: #DDDDDD; }
+}
+
+#logo:before {
+    content: "Sound Wall";
+    color: #FFFFFF;
+    font-size: 2.1em;
+    font-family: 'Rock Salt', cursive;
+    -webkit-animation: blink-logo 0.5s infinite;
+    -moz-animation:    blink-logo 0.5s infinite;
+    -o-animation:      blink-logo 0.5s infinite;
+    animation:         blink-logo 0.5s infinite;
+}
+
+#logo {
+    vertical-align: middle;
+    font-size: 1em;
+}
+
+.help {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    display: inline-block;
+    color: #DDDDDD;
+}
+
+.help:hover {
+    opacity: 0.9;
+    color: #FFFFFF;
+}
+
+#search {
+    vertical-align: middle;
+    height: 50px;
+}
+
+#searchterm {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 5px;
+    height: 40px;
+    font-size: 18px;
+    /*border-radius: 8px;*/
+    border: 0;
+    color: #FFFFFF;
+    background: rgba(255, 255, 255,.1);
+    padding: 10px;
+    outline: 0px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+}
+
+#stuff {
+    height: 50px;
+}
+
+.controls a:hover {
+    text-decoration: none;
+}
+
+iframe {
+    opacity: 0.3;
+}
+
+iframe.active {
+    /*border: 2px solid #01FF70;*/
+    opacity: 1;
+}
+
+a.mute {
+    font-size: 2.5em;
+    text-decoration: none;
+    margin-top: 10px;
+    color: #AAAAAA;
+}
+
+a.mute:hover {
+    text-decoration: none;
+    color: #AAAAAA;
+}
+
+a.allMuted {
+    color: #FF4136;
+}
+
+a.allMuted:hover {
+    color: #FF4136;
+}
+
+.share {
+    display: inline-block;
+    color: #FFF;
+    font-size: 32px;
+    padding-top: 7px;
+    height: 50px;
+    vertical-align: middle;
+    width: 25%;
+
+}
+
+.share:hover {
+    opacity: 0.9;
+}
+
+.sbg-facebook {
+    background: #3971B6;
+}
+
+.sbg-twitter {
+    background: #A0D6E2;
+}
+
+.sbg-github {
+    background: #333333;
+}

@@ -13,13 +13,25 @@ module.exports = function(grunt) {
 
     // configure jshint to validate js files -----------------------------------
     jshint: {
-        options: {
-          reporter: require('jshint-stylish') // use jshint-stylish to make our errors look and read good
-        },
+      options: {
+        reporter: require('jshint-stylish') // use jshint-stylish to make our errors look and read good
+      },
 
-      // when this task is run, lint the Gruntfile and all js files in src
-        build: ['Grunfile.js', 'js/app.js']
+    // when this task is run, lint the Gruntfile and all js files in src
+      build: ['Grunfile.js', 'js/app.js']
+    },
+
+    // configure uglify to minify js files -------------------------------------
+    uglify: {
+      options: {
+        banner: '/*\n <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> \n*/\n'
+      },
+      build: {
+        files: {
+          'dist/js/app.min.js': 'js/app.js'
+        }
       }
+    }
 
   });
 
