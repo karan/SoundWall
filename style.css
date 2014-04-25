@@ -3,7 +3,7 @@
 html,body { height: 100%; margin: 0px; padding: 0px; }
 
 body {
-    background-color: #ffffff;
+    background-color: #111111;
     font-family: avenir, 'avenir next', helvetica, arial, sans-serif;
     text-align: center;
 }
@@ -22,7 +22,12 @@ body {
 }
 
 a {
-    color: #404040;
+    color: #AAAAAA;
+}
+
+p {
+    font-size: 1.3em;
+    line-height: 1.7em;
 }
 
 #grid {
@@ -43,11 +48,32 @@ a {
     display: block;
 }
 
+@-webkit-keyframes blink-logo {
+  0%   { color: #FFFFFF; }
+  100% { color: #DDDDDD; }
+}
+@-moz-keyframes blink-logo {
+  0%   { color: #FFFFFF; }
+  100% { color: #DDDDDD; }
+}
+@-o-keyframes blink-logo {
+  0%   { color: #FFFFFF; }
+  100% { color: #DDDDDD; }
+}
+@keyframes blink-logo {
+  0%   { color: #FFFFFF; }
+  100% { color: #DDDDDD; }
+}
+
 #logo:before {
     content: "SoundWall";
-    color: #404040;
+    color: #FFFFFF;
     font-size: 2.1em;
     font-family: 'Rock Salt', cursive;
+    -webkit-animation: blink-logo 0.5s infinite;
+    -moz-animation:    blink-logo 0.5s infinite;
+    -o-animation:      blink-logo 0.5s infinite;
+    animation:         blink-logo 0.5s infinite;
 }
 
 #logo {
@@ -55,17 +81,16 @@ a {
     font-size: 1em;
 }
 
-.btn-circle {
+.help {
     margin-bottom: 10px;
     margin-left: 10px;
     display: inline-block;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    padding: 6px 0;
-    font-size: 13px;
-    line-height: 1.42;
-    border-radius: 50%;
+    color: #DDDDDD;
+}
+
+.help:hover {
+    opacity: 0.9;
+    color: #FFFFFF;
 }
 
 #search {
@@ -74,20 +99,20 @@ a {
 }
 
 #searchterm {
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     margin-top: 5px;
     height: 40px;
     font-size: 18px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     border: 0;
-    color: #111;
-    background: rgba(0,0,0,.1);
+    color: #FFFFFF;
+    background: rgba(255, 255, 255,.1);
     padding: 10px;
     outline: 0px;
-    box-shadow: 0 1px 0 rgba(255,255,255,.15), 
-                0 2px 4px rgba(0,0,0,.2) inset, 
-                0 0 12px rgba(255,255,255,.1);
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
 }
 
 #stuff {
@@ -134,11 +159,12 @@ a.allMuted:hover {
     padding-top: 7px;
     height: 50px;
     vertical-align: middle;
-    width: 80px;
+    width: 25%;
+
 }
 
 .share:hover {
-    opacity: 0.7;
+    opacity: 0.9;
 }
 
 .sbg-facebook {

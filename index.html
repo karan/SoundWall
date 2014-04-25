@@ -9,6 +9,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-latest.js"></script>
     <script src="//connect.soundcloud.com/sdk.js"></script>
     <script src="http://w.soundcloud.com/player/api.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -20,8 +21,8 @@
 
   <div id="header" class="row">
 
-    <div id="logo" class="col-md-3">
-      <a href="#" class="btn btn-default btn-circle">?</a>
+    <div id="logo" class="col-md-3 col-md-offset-1">
+      <a href="#" class="help" data-toggle="modal" data-target="#help-modal"><i class="fa fa-question-circle fa-2x"></i></a>
     </div>
     
     <div id="search" class="col-md-4">
@@ -32,7 +33,7 @@
       <a href="#" class="mute allMuted col-md-6 glyphicon glyphicon-volume-off"></a>
     </div> -->
     
-    <div id="stuff" class="col-md-4">
+    <div id="stuff" class="col-md-3">
       <a href="http://github.com/karan/SoundWall" target="_blank"><span class="fa fa-github share sbg-github"></span></a>
       <a href="https://twitter.com/intent/tweet?text=SoundCloud+Wall&amp;url=http://karan.github.io/SoundWall&amp;via=TheKaranGoel"><span class="fa fa-twitter share sbg-twitter"></span></a>
       <a href="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog','width=626,height=436');return false;"><span class="fa fa-facebook share sbg-facebook"></span></a>
@@ -41,6 +42,31 @@
   </div>
   
   <div id="grid"></div>
+
+  <div id='help-modal' class="modal fade" tabindex="-1" role="dialog" aria-labelledby="help-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="help-modalLabel">SoundCloud Wall</h4>
+      </div>
+      <div class="modal-body">
+        <p>SoundCloud Wall is a project by <a href="http://www.goel.im" target="_blank">Karan Goel</a> that aims to provide a <b>faster way to discover new music</b>.</p>
+        <p>To get started, search for an artist or a song, and hover over a player to unmute only that player.</p>
+        <p>If you like SoundCloud Wall, please consider sharing it with your friends and help me make it viral.</p>
+        <p>If you have any questions or suggestions, feel free to <a href="http://twitter.com/TheKaranGoel" target="_blank">tweet to me</a> or <a href="mailto:karan@goel.im">email me</a>.</p>
+        <a href="http://github.com/karan/SoundWall" target="_blank"><span class="fa fa-github share sbg-github"></span></a>
+        <a href="https://twitter.com/intent/tweet?text=SoundCloud+Wall&amp;url=http://karan.github.io/SoundWall&amp;via=TheKaranGoel"><span class="fa fa-twitter share sbg-twitter"></span></a>
+        <a href="" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'facebook-share-dialog','width=626,height=436');return false;"><span class="fa fa-facebook share sbg-facebook"></span></a>
+      </div>
+      <div class="modal-footer">
+        <p>Also checkout <a href="http://karan.github.io/scInstant/" target="_blank">SoundCloud Instant</a>.</p>
+        <p><a href="http://eepurl.com/SRIPT" target="_blank">Get notified when I make something new and cool.</a></p>
+        <small>Inspired by <a href="https://github.com/grant/vidwall" target="_blank">VidWall</a></small>
+      </div>
+    </div>
+  </div>
+  </div>
 
 </body>
 
