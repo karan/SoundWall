@@ -28,7 +28,10 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          'dist/js/app.min.js': ['js/vendor/sdk.js', 'js/vendor/api.js', 'js/vendor/alertify.min.js', 'js/app.js']
+          'dist/js/app.min.js': ['js/vendor/sdk.js', 'js/vendor/api.js', 
+                            'js/vendor/alertify.min.js', 'js/app.js'],
+          'dist/js/jquery-2.1.0.min.js': 'js/vendor/jquery-2.1.0.min.js',
+          'dist/js/bootstrap.min.js': 'js/vendor/bootstrap.min.js'
         }
       }
     },
@@ -40,12 +43,17 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          'dist/css/style.min.css': ['css/vendor/alertify.core.css', 'css/vendor/alertify.default.css', 'css/style.css']
+          'dist/css/style.min.css': ['css/vendor/alertify.core.css', 
+                        'css/vendor/alertify.default.css', 'css/style.css'],
+          'dist/css/font-awesome.min.css': 'css/vendor/font-awesome.css',
+          'dist/css/bootstrap.min.css': 'css/vendor/bootstrap.min.css'
         }
       }
     }
 
   });
+
+  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin']);
 
   // ===========================================================================
   // LOAD GRUNT PLUGINS ========================================================
