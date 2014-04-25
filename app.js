@@ -30,6 +30,10 @@ $(function(){
 
     // build the grid of iframes
     function builGrid() {
+        locked = false;
+        allMuted = true;
+        $(".mute").addClass("allMuted");
+
         var grid = $("#grid");
         for (var i = 0; i < numRows; i++) {
             for (var j = 0; j < numCols; j++) {

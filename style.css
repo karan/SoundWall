@@ -94,22 +94,17 @@ a {
     height: 50px;
 }
 
-.twitter-share-button, .fb-share-button, .github-button {
-    margin-top: 3%;
-    vertical-align: middle;
-    display: inline-block;
-}
-
-iframe.github-button {
-    padding: 0;
-}
-
 .controls a:hover {
     text-decoration: none;
 }
 
-.active {
-    border: 2px solid #01FF70;
+iframe {
+    opacity: 0.3;
+}
+
+iframe.active {
+    /*border: 2px solid #01FF70;*/
+    opacity: 1;
 }
 
 a.mute {
@@ -138,13 +133,8 @@ a.allMuted:hover {
     font-size: 32px;
     padding-top: 7px;
     height: 50px;
-    /*margin-bottom: 10px;*/
-    /*margin-top: 10px;*/
     vertical-align: middle;
     width: 80px;
-    /*border-radius: 50%;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;*/
 }
 
 .share:hover {
