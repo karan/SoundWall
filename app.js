@@ -48,8 +48,8 @@ $(function(){
     function cleanUp() {
         $(".song").remove();
         widgets = [];
-        var curRow = -1;
-        var curCol = -1;
+        var curRow = 0;
+        var curCol = 0;
     }
 
     // main function that handles searching
@@ -84,9 +84,9 @@ $(function(){
         var iframes = $(".song");
 
         for (var i = 0; i < iframes.length; i++) {
-            var $iframe = iframes[i];
-            $iframe.src = 'http://w.soundcloud.com/player/?url=https://soundcloud.com/partyomo/partynextdoor-west-district';
-            var widget = SC.Widget($iframe);
+            var iframe = iframes[i];
+            iframe.src = 'http://w.soundcloud.com/player/?url=https://soundcloud.com/partyomo/partynextdoor-west-district';
+            var widget = SC.Widget(iframe);
             
             bindIt(widget);
 
