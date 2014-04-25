@@ -23,4 +23,4 @@ Also checkout [SoundCloud Instant](http://karan.github.io/scInstant/).
 
 ===
 
-Inspired by [VidWall](https://github.com/grant/vidwall).
+Inspired by [VidWall](http://grant.github.io/vidwall/).

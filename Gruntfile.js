@@ -29,7 +29,7 @@ module.exports = function(grunt) {
       build: {
         files: {
           'dist/js/app.min.js': 'js/app.js',
-          'dist/js/sc-alert.min.js': ['js/vendor/sdk.js', 'js/vendor/api.js', 'js/vendor/alertify.min.js'],
+          'dist/js/alertify.min.js': 'js/vendor/alertify.min.js',
           'dist/js/jquery-2.1.0.min.js': 'js/vendor/jquery-2.1.0.min.js',
           'dist/js/bootstrap.min.js': 'js/vendor/bootstrap.min.js'
         }
