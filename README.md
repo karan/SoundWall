@@ -1,12 +1,11 @@
-SoundCloud Wall
+[SoundCloud Wall](http://karan.github.io/SoundWall/)
 =========
 
 ### Faster way to discover new music.
 
-![](http://i.imgur.com/VzHhrjq.png?1)
+![](http://i.imgur.com/mXywuiE.png)
 
-To get started, search for an artist or a song, and hover over a player to unmute only that player. To lock or unlock a playing song, use the keyboard shortcut `Shift + L`.
-
+To get started, [search](http://karan.github.io/SoundWall/) for an artist or a song, and hover over a player to unmute only that player. To lock or unlock a playing song, use the keyboard shortcut `Shift + L`.
 
 If you like SoundCloud Wall, please consider sharing it with your friends and help me make it viral.
 
