@@ -126,7 +126,6 @@ iframe {
 }
 
 iframe.active {
-    /*border: 2px solid #01FF70;*/
     opacity: 1;
 }
 
@@ -158,7 +157,24 @@ a.allMuted:hover {
     height: 50px;
     vertical-align: middle;
     width: 20%;
+    opacity: 0.5;
+}
 
+@-webkit-keyframes shine-share {
+  0%   { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes shine-share {
+  0%   { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+@-o-keyframes shine-share {
+  0%   { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+@keyframes shine-share {
+  0%   { opacity: 0.5; }
+  100% { opacity: 1; }
 }
 
 .share:hover {
@@ -167,16 +183,32 @@ a.allMuted:hover {
 
 .sbg-facebook {
     background: #3971B6;
+    -webkit-animation: shine-share 1s infinite;
+    -moz-animation:    shine-share 1s infinite;
+    -o-animation:      shine-share 1s infinite;
+    animation:         shine-share 1s infinite;
 }
 
 .sbg-twitter {
     background: #A0D6E2;
+    -webkit-animation: shine-share 1.2s infinite;
+    -moz-animation:    shine-share 1.2s infinite;
+    -o-animation:      shine-share 1.2s infinite;
+    animation:         shine-share 1.2s infinite;
 }
 
 .sbg-github {
     background: #333333;
+    -webkit-animation: shine-share 1.4s infinite;
+    -moz-animation:    shine-share 1.4s infinite;
+    -o-animation:      shine-share 1.4s infinite;
+    animation:         shine-share 1.4s infinite;
 }
 
 .sbg-help {
     background-color: #3D9970;
+    -webkit-animation: shine-share 1s infinite;
+    -moz-animation:    shine-share 1s infinite;
+    -o-animation:      shine-share 1s infinite;
+    animation:         shine-share 1s infinite;
 }
