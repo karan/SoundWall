@@ -2,7 +2,7 @@ $(function(){
 
     $(document).height($(window).height());
 
-    $("#help-modal").modal('show');
+    $("#intro-modal").modal('show');
 
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
@@ -27,8 +27,12 @@ $(function(){
         client_id: client_id
     });
 
+    $('#intro-modal').on('hide.bs.modal', function (e) {
+        addTracks("armin van buuren");
+    });
+
     // when page first loads, search for this
-    addTracks("armin van buuren");
+    // addTracks("armin van buuren");
 
     // build the grid of iframes
     function builGrid() {
