@@ -9,6 +9,7 @@ $(function(){
 
     var numCols = 2;
     var numRows = 3;
+    var numPlayers;
 
     var curRow = -1;
     var curCol = -1;
@@ -96,7 +97,9 @@ $(function(){
     function loadTracks(tracks) {
         var iframes = $(".song");
 
-        for (var i = 0; i < iframes.length; i++) {
+        numPlayers = Math.min(iframes.length, tracks.length);
+
+        for (var i = 0; i < numPlayers; i++) {
             var iframe = iframes[i];
             iframe.src = 'http://w.soundcloud.com/player/?url=https://soundcloud.com/partyomo/partynextdoor-west-district';
             var widget = SC.Widget(iframe);
@@ -123,6 +126,12 @@ $(function(){
         widget.bind(SC.Widget.Events.READY, function() {
             console.log("setting volume to 0");
             widget.setVolume(0);
+
+            widget.bind(SC.Widget.Events.FINISH, function() {
+                // loop over
+                widget.skip(0).seekTo(0);
+                widget.play();
+            });
         });
     }
 
@@ -163,12 +172,12 @@ $(function(){
         }
 
         for (i = 0; i < iframes.length; i++) {
-            if (i != row*numCols+col) {
+            if (i != row*numCols+col && widgets[i]) {
                 widgets[i].setVolume(0);
                 if (iframes.eq(i).hasClass("active")) {
                     iframes.eq(i).removeClass("active");
                 }
-            } else {
+            } else if (widgets[i]) {
                 iframes.eq(i).addClass("active");
                 widgets[i].setVolume(100);
             }
