@@ -29,7 +29,6 @@ module.exports = function(grunt) {
       build: {
         files: {
           'dist/js/app.min.js': 'js/app.js',
-          'dist/js/alertify.min.js': 'js/vendor/alertify.min.js',
           'dist/js/jquery-2.1.0.min.js': 'js/vendor/jquery-2.1.0.min.js',
           'dist/js/bootstrap.min.js': 'js/vendor/bootstrap.min.js'
         }
@@ -43,8 +42,7 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          'dist/css/style.min.css': ['css/vendor/alertify.core.css', 
-                        'css/vendor/alertify.default.css', 'css/style.css'],
+          'dist/css/style.min.css': 'css/style.css',
           'dist/css/bootstrap.min.css': 'css/vendor/bootstrap.min.css'
         }
       }

@@ -2,6 +2,8 @@ $(function(){
 
     $(document).height($(window).height());
 
+    $("#help-modal").modal('show');
+
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
 
@@ -80,8 +82,6 @@ $(function(){
     function addTracks(q) {
         cleanUp();
         builGrid();
-
-        alertify.success('Hover to unmute player. Use <code>Shift + L</code> to lock and unlock current player.', 10000);
 
         SC.get('/tracks', { q: q, limit: 5*numCols*numRows }, function(tracks) {
             // now we randomize the tracks
