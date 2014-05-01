@@ -2,7 +2,7 @@ $(function(){
 
     $(document).height($(window).height());
 
-    // $("#intro-modal").modal('show');
+    $("#intro-modal").modal('show');
 
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
@@ -26,7 +26,7 @@ $(function(){
         client_id: client_id
     });
 
-    addTracks("armin van buuren");
+    // addTracks("armin van buuren");
 
     $('#intro-modal').on('hide.bs.modal', function (e) {
         addTracks("armin van buuren");
@@ -40,8 +40,9 @@ $(function(){
         console.log("building grid");
         locked = false;
 
+        var i = 0;
         var grid = $("#grid");
-        for (var i = 0; i < numRows; i++) {
+        for (i = 0; i < numRows; i++) {
             for (var j = 0; j < numCols; j++) {
                 var audio = $('<audio/>').attr('id', 'widget'+i+j);
                 var image = $('<img/>').attr("id", "img"+i+j);
@@ -63,12 +64,12 @@ $(function(){
 
         var h2s = $("h2");
 
-        var i = 0;
+        i = 0;
         $("img").each(function() {
             var imgHeight = $(this).height();
             var position = $(this).position();
-            var positionTop = (position.top + 2/3*imgHeight)
-            var positionLeft = (position.left)
+            var positionTop = (position.top + 2/3*imgHeight);
+            var positionLeft = (position.left);
             $(h2s[i]).css({"position":"absolute", "top":positionTop+"px", "left":positionLeft+"px", "width":audioWidth +"px"});
             i++;
         });
