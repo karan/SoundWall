@@ -1,8 +1,9 @@
 $(function(){
 
     $(document).height($(window).height());
+    $("#grid").height($(document).height()-$("#header").height());
 
-    $("#intro-modal").modal('show');
+    // $("#intro-modal").modal('show');
 
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
@@ -14,8 +15,8 @@ $(function(){
     var curRow = -1;
     var curCol = -1;
 
-    var audioWidth = $("#grid").width() / numCols - 5;
-    var audioHeight = $("#grid").height() / numRows - 25;
+    var audioWidth = $("#grid").width() / numCols;
+    var audioHeight = $("#grid").height() / numRows;
 
     var audioTags = [];
 
@@ -26,14 +27,12 @@ $(function(){
         client_id: client_id
     });
 
-    // addTracks("armin van buuren");
-
     $('#intro-modal').on('hide.bs.modal', function (e) {
         addTracks("armin van buuren");
     });
 
     // when page first loads, search for this
-    // addTracks("armin van buuren");
+    addTracks("armin van buuren");
 
     // build the grid of audioTags
     function builGrid() {
@@ -49,6 +48,7 @@ $(function(){
                 var h2 = $('<h2/>');
 
                 audio.attr("loop", "true");
+                audio.attr("controls", "true");
                 audio.attr("autoplay", "true");
 
                 image.width(audioWidth);
@@ -65,13 +65,20 @@ $(function(){
         var h2s = $("h2");
 
         i = 0;
+        var j = 0;
         $("img").each(function() {
             var imgHeight = $(this).height();
             var position = $(this).position();
             var positionTop = (position.top + 2/3*imgHeight);
             var positionLeft = (position.left);
-            $(h2s[i]).css({"position":"absolute", "top":positionTop+"px", "left":positionLeft+"px", "width":audioWidth +"px"});
+            var playerTop = position.top+imgHeight-$(audioTags[i]).height();
+            $(h2s[i]).css({"position":"absolute", "top":positionTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});
+            $(audioTags[i]).css({"position":"absolute", "top":playerTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});
             i++;
+            j++;
+            if (j >= numCols) {
+                j = 0;
+            }
         });
     }
 

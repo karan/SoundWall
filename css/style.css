@@ -46,7 +46,6 @@ h2 {
 
 #grid {
     width: 100%;
-    height: calc(100%);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -129,7 +128,12 @@ h2 {
 img {
     opacity: 0.3;
     position: relative;
+    border-radius: 5px;
 }
+
+/*audio {
+    position: relative;
+}*/
 
 .active {
     opacity: 1;
