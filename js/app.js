@@ -77,6 +77,8 @@ $(function(){
     // reset the state of DOM
     function cleanUp() {
         $("audio").remove();
+        $("img").remove();
+        $("h2").remove();
         audioTags = [];
         var curRow = 0;
         var curCol = 0;
