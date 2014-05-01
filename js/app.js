@@ -35,7 +35,7 @@ $(function(){
     // when page first loads, search for this
     // addTracks("armin van buuren");
 
-    // build the grid of iframes
+    // build the grid of audioTags
     function builGrid() {
         console.log("building grid");
         locked = false;
@@ -60,7 +60,6 @@ $(function(){
     // reset the state of DOM
     function cleanUp() {
         $("audio").remove();
-        widgets = [];
         var curRow = 0;
         var curCol = 0;
     }
@@ -102,17 +101,14 @@ $(function(){
         });
     }
 
-    // loads the tracks into iframes
+    // loads the tracks into audioTags
     function loadTracks(tracks) {
         numPlayers = Math.min(audioTags.length, tracks.length);
 
         for (var i = 0; i < numPlayers; i++) {
             var audio = audioTags[i];
             audio.attr("src", tracks[i].stream_url + "?client_id=" + client_id);
-            // console.log(audio);
-            // audio.on("play", function() {
-                audio[0].volume = 0;                
-            // });
+            // audio[0].muted = true;
         }
     }
 
@@ -128,9 +124,12 @@ $(function(){
             var row = Math.max(Math.min(Math.floor(y / audioHeight), numRows-1), 0);
             var col = Math.min(Math.floor(x / audioWidth), numCols-1);
 
-            audioTags[row*numCols+col][0].volume = 1;
+            $("#widget"+row+col)[0].volume = 1;
+            // audioTags[row*numCols+col][0].muted = false;
+            // audioTags[row*numCols+col][0].volume = 1;
+            // console.log(audioTags[row*numCols+col][0].volume);
             // audioTags[row*numCols+col].attr("muted", "false");
-            // iframes[row*numCols+col].addClass("active");
+            // audioTags[row*numCols+col].addClass("active");
 
             muteEverythingElse(row, col);
 
@@ -141,28 +140,34 @@ $(function(){
 
     // mutes all widgets except the one denoted by (row, col)
     function muteEverythingElse(row, col) {
-        var iframes = $("audio");
-
         // var i;
         // if (row < 0 || col < 0) {
-        //     for (i = 0; i < iframes.length; i++) {
-        //         // if (iframes.eq(i).hasClass("active")) {
-        //             // iframes.eq(i).removeClass("active");
+        //     for (i = 0; i < audioTags.length; i++) {
+        //         // if (audioTags.eq(i).hasClass("active")) {
+        //             // audioTags.eq(i).removeClass("active");
         //         }
         //     }
         //     return;
         // }
-
-        for (i = 0; i < iframes.length; i++) {
-            if (i != row*numCols+col && audioTags[i]) {
-                audioTags[row*numCols+col][0].volume = 0;
-                // if (iframes.eq(i).hasClass("active")) {
-                    // iframes.eq(i).removeClass("active");
+        console.log(row, col);
+        for (i = 0; i < audioTags.length; i++) {
+            if (i != row*numCols+col) {
+                console.log("in if");
+                audioTags[i][0].volume = 0;
+                // audioTags[row*numCols+col][0].muted = true;
+                // audioTags[row*numCols+col][0].volume = 1.0;
+                // console.log(i + " volume = " + audioTags[i][0].muted);
+                // if (audioTags.eq(i).hasClass("active")) {
+                    // audioTags.eq(i).removeClass("active");
                 // }
-            } else if (audioTags[i]) {
-                // iframes.eq(i).addClass("active");
-                audioTags[row*numCols+col][0].volume = 1;
             }
+            // } else {
+            //     console.log("in else");
+            //     audioTags[i][0].volume = 1;
+            //     // audioTags.eq(i).addClass("active");
+            //     // audioTags[row*numCols+col][0].muted = false;
+            //     // console.log(i + " volume = " + audioTags[i][0].muted);
+            // }
         }
     }
 
