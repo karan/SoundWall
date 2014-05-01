@@ -3,10 +3,10 @@ $(function(){
     $(document).height($(window).height());
     $("#grid").height($(document).height()-$("#header").height());
 
-    // $("#intro-modal").modal('show');
+    $("#intro-modal").modal('show');
 
     // SC api key
-    var client_id = '5371eb9743a8c619876d4e967d558f82';
+    var client_id = ['5371eb9743a8c619876d4e967d558f82', '0dc8789a4e3488e1ba3d798f48b6a5e7'];
 
     var numCols = 3;    // number of columns in the grid
     var numRows = 2;    // number of rows in the grid
@@ -26,7 +26,7 @@ $(function(){
 
     // initialize the soundcloud app
     SC.initialize({
-        client_id: client_id
+        client_id: client_id[0]
     });
 
     // start a track after the first modal is closed
@@ -36,7 +36,7 @@ $(function(){
 
     // when page first loads, search for this
     // addTracks("armin van buuren");
-    addTracks("dada life");
+    // addTracks("dada life");
 
     // build the grid of audioTags. images and h2 titles
     // every element is just empty after this point
@@ -45,17 +45,23 @@ $(function(){
         locked = false;
 
         var i = 0, j = 0;
+
         var grid = $("#grid");
         for (i = 0; i < numRows; i++) {
             for (j = 0; j < numCols; j++) {
+                // make an audio tag
                 var audio = $('<audio/>').attr('id', 'widget'+i+j);
+                // make an image tag
                 var image = $('<img/>').attr("id", "img"+i+j);
+                // make a h2 tag
                 var h2 = $('<h2/>');
 
+                // add properties to the audio player
                 audio.attr("loop", "true");
                 audio.attr("controls", "true");
                 audio.attr("autoplay", "true");
 
+                // set the dimensions of image
                 image.width(audioWidth);
                 image.height(audioHeight);
 
@@ -76,7 +82,6 @@ $(function(){
             var imgHeight = $(this).height();
             var position = $(this).position();
             var positionTop = (position.top);
-            var positionLeft = (position.left);
             var playerTop = position.top+imgHeight-$(audioTags[i]).height();
             $(h2s[i]).css({"position":"absolute", "top":positionTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});
             $(audioTags[i]).css({"position":"absolute", "top":playerTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});
@@ -143,13 +148,15 @@ $(function(){
         numPlayers = Math.min(audioTags.length, tracks.length);
         var tracksAdded = 0;
         var i = 0;
+        console.log(tracks);
 
-        while (tracksAdded < numPlayers && i < tracks.length) {
+        while (tracksAdded < numPlayers) {
             var thisTrack = tracks[i];
-            console.log("added=", tracksAdded, "title=", thisTrack.title);
             if (thisTrack.streamable === true) {
+                console.log("added=", tracksAdded, "title=", thisTrack.title);
+                console.log(thisTrack);
                 var audio = audioTags[tracksAdded];
-                audio.attr("src", thisTrack.stream_url + "?client_id=" + client_id);
+                audio.attr("src", thisTrack.stream_url + "?client_id="+client_id[tracksAdded%2]);
                 audio[0].volume = 0;
                 audio[0].play();
 
@@ -160,6 +167,7 @@ $(function(){
                 } else {
                     imgs[tracksAdded].src = "images/default.png";
                 }
+                console.log(tracksAdded);
                 tracksAdded++;
             }
             i++;
