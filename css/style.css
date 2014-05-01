@@ -128,12 +128,12 @@ h2 {
 img {
     opacity: 0.3;
     position: relative;
-    border-radius: 5px;
 }
 
-/*audio {
-    position: relative;
-}*/
+audio {
+    background-color: #111111;
+    border-radius: 0px;
+}
 
 .active {
     opacity: 1;
