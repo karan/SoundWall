@@ -44,6 +44,7 @@ $(function(){
         for (var i = 0; i < numRows; i++) {
             for (var j = 0; j < numCols; j++) {
                 var audio = $('<audio/>').attr('id', 'widget'+i+j);
+                var image = $('<img/>').attr("id", "img"+i+j);
                 audio.attr("controls", "true");
                 audio.attr("loop", "true");
                 audio.attr("autoplay", "true");
@@ -51,6 +52,7 @@ $(function(){
 
                 audio.width(audioWidth);
                 audio.height(audioHeight);
+                // grid.append(image);
                 grid.append(audio);
                 audioTags.push(audio);
             }
@@ -60,6 +62,7 @@ $(function(){
     // reset the state of DOM
     function cleanUp() {
         $("audio").remove();
+        audioTags = [];
         var curRow = 0;
         var curCol = 0;
     }
@@ -104,10 +107,15 @@ $(function(){
     // loads the tracks into audioTags
     function loadTracks(tracks) {
         numPlayers = Math.min(audioTags.length, tracks.length);
+        var imgs = $("img");
 
         for (var i = 0; i < numPlayers; i++) {
             var audio = audioTags[i];
             audio.attr("src", tracks[i].stream_url + "?client_id=" + client_id);
+            audio[0].volume = 0;
+            audio[0].play();
+            // if (tracks[i].artwork_url)
+                // imgs[i].src = tracks[i].artwork_url.replace("large", "t500x500");
             // audio[0].muted = true;
         }
     }
@@ -124,6 +132,8 @@ $(function(){
             var row = Math.max(Math.min(Math.floor(y / audioHeight), numRows-1), 0);
             var col = Math.min(Math.floor(x / audioWidth), numCols-1);
 
+            console.log(row, col);
+            console.log($("#widget"+row+col)[0]);
             $("#widget"+row+col)[0].volume = 1;
             // audioTags[row*numCols+col][0].muted = false;
             // audioTags[row*numCols+col][0].volume = 1;
@@ -149,10 +159,9 @@ $(function(){
         //     }
         //     return;
         // }
-        console.log(row, col);
+        
         for (i = 0; i < audioTags.length; i++) {
             if (i != row*numCols+col) {
-                console.log("in if");
                 audioTags[i][0].volume = 0;
                 // audioTags[row*numCols+col][0].muted = true;
                 // audioTags[row*numCols+col][0].volume = 1.0;
