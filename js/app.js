@@ -62,7 +62,6 @@ $(function(){
     function cleanUp() {
         $("audio").remove();
         audioTags = [];
-        images = [];
         var curRow = 0;
         var curCol = 0;
     }
@@ -114,8 +113,11 @@ $(function(){
             audio.attr("src", tracks[i].stream_url + "?client_id=" + client_id);
             audio[0].volume = 0;
             audio[0].play();
-            if (tracks[i].artwork_url)
+            if (tracks[i].artwork_url) {                
                 imgs[i].src = tracks[i].artwork_url.replace("large", "t500x500");
+            } else {
+                imgs[i].src = "images/default.png";
+            }
         }
     }
 
