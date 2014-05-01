@@ -35,6 +35,15 @@ p {
     line-height: 1.7em;
 }
 
+h2 {
+    font-size: 1.3em;
+    background: #111111;
+    color: #ffffff;
+    position: absolute;
+    opacity: 0.3;
+    padding: 5px 10px;
+}
+
 #grid {
     width: 100%;
     height: calc(100%);
@@ -119,9 +128,10 @@ p {
 
 img {
     opacity: 0.3;
+    position: relative;
 }
 
-img.active {
+.active {
     opacity: 1;
 }
 

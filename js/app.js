@@ -45,17 +45,33 @@ $(function(){
             for (var j = 0; j < numCols; j++) {
                 var audio = $('<audio/>').attr('id', 'widget'+i+j);
                 var image = $('<img/>').attr("id", "img"+i+j);
-                // audio.attr("controls", "true");
+                var h2 = $('<h2/>');
+
                 audio.attr("loop", "true");
                 audio.attr("autoplay", "true");
 
                 image.width(audioWidth);
                 image.height(audioHeight);
+                
                 grid.append(image);
+                grid.append(h2);
                 grid.append(audio);
+
                 audioTags.push(audio);
             }
         }
+
+        var h2s = $("h2");
+
+        var i = 0;
+        $("img").each(function() {
+            var imgHeight = $(this).height();
+            var position = $(this).position();
+            var positionTop = (position.top + 2/3*imgHeight)
+            var positionLeft = (position.left)
+            $(h2s[i]).css({"position":"absolute", "top":positionTop+"px", "left":positionLeft+"px", "width":audioWidth +"px"});
+            i++;
+        });
     }
 
     // reset the state of DOM
@@ -107,17 +123,24 @@ $(function(){
     function loadTracks(tracks) {
         numPlayers = Math.min(audioTags.length, tracks.length);
         var imgs = $("img");
+        var h2s = $("h2");
+
+        console.log(h2s);
 
         for (var i = 0; i < numPlayers; i++) {
             var audio = audioTags[i];
             audio.attr("src", tracks[i].stream_url + "?client_id=" + client_id);
             audio[0].volume = 0;
             audio[0].play();
+
+            $(h2s[i]).text(tracks[i].title);
+
             if (tracks[i].artwork_url) {                
                 imgs[i].src = tracks[i].artwork_url.replace("large", "t500x500");
             } else {
                 imgs[i].src = "images/default.png";
             }
+
         }
     }
 
@@ -135,8 +158,11 @@ $(function(){
 
             console.log(row, col);
             var imgs = $("img");
+            var h2s = $("h2");
+
             $("#widget"+row+col)[0].volume = 1;
             imgs.eq(row*numCols+col).addClass("active");
+            h2s.eq(row*numCols+col).addClass("active");
 
             muteEverythingElse(row, col);
 
@@ -148,12 +174,14 @@ $(function(){
     // mutes all widgets except the one denoted by (row, col)
     function muteEverythingElse(row, col) {
         var imgs = $("img");
+        var h2s = $("h2");
 
         var i;
         if (row < 0 || col < 0) {
             for (i = 0; i < audioTags.length; i++) {
                 if (imgs[i].hasClass("active")) {
                     imgs[i].removeClass("active");
+                    h2s.eq(i).removeClass("active");
                 }
             }
             return;
@@ -164,6 +192,7 @@ $(function(){
                 audioTags[i][0].volume = 0;
                 if (imgs.eq(i).hasClass("active")) {
                     imgs.eq(i).removeClass("active");
+                    h2s.eq(i).removeClass("active");
                 }
             }
         }
