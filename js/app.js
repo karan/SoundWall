@@ -8,17 +8,19 @@ $(function(){
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
 
-    var numCols = 3;
-    var numRows = 2;
-    var numPlayers;
+    var numCols = 3;    // number of columns in the grid
+    var numRows = 2;    // number of rows in the grid
+    var numPlayers;     // total number of players to add in the grid
 
-    var curRow = -1;
-    var curCol = -1;
+    var curRow = -1;    // the row of currently playing song
+    var curCol = -1;    // the col of currently playing song
 
     var audioWidth = $("#grid").width() / numCols;
     var audioHeight = $("#grid").height() / numRows;
 
-    var audioTags = [];
+    var audioTags = []; // all audio players
+    var h2s = [];   // all h2 tags
+    var imgs = [];  // all image tags
 
     var locked = false; // if true, mouseover event will not work
 
@@ -27,6 +29,7 @@ $(function(){
         client_id: client_id
     });
 
+    // start a track after the first modal is closed
     $('#intro-modal').on('hide.bs.modal', function (e) {
         addTracks("armin van buuren");
     });
@@ -34,7 +37,8 @@ $(function(){
     // when page first loads, search for this
     // addTracks("armin van buuren");
 
-    // build the grid of audioTags
+    // build the grid of audioTags. images and h2 titles
+    // every element is just empty after this point
     function builGrid() {
         console.log("building grid");
         locked = false;
@@ -62,8 +66,6 @@ $(function(){
             }
         }
 
-        var h2s = $("h2");
-
         i = 0;
         j = 0;
         $("img").each(function() {
@@ -80,6 +82,9 @@ $(function(){
                 j = 0;
             }
         });
+
+        h2s = $("h2");
+        imgs = $("img");
     }
 
     // reset the state of DOM
@@ -88,6 +93,8 @@ $(function(){
         $("img").remove();
         $("h2").remove();
         audioTags = [];
+        h2s = [];
+        imgs = [];
         var curRow = 0;
         var curCol = 0;
     }
@@ -103,6 +110,7 @@ $(function(){
 
     });
 
+    // handles the locking event by toggling the state of the flag
     function handleLocking(event) {
         if (event.shiftKey && event.which == 76) {
             // control key pressed, pause the state
@@ -132,10 +140,6 @@ $(function(){
     // loads the tracks into audioTags
     function loadTracks(tracks) {
         numPlayers = Math.min(audioTags.length, tracks.length);
-        var imgs = $("img");
-        var h2s = $("h2");
-
-        console.log(h2s);
 
         for (var i = 0; i < numPlayers; i++) {
             var audio = audioTags[i];
@@ -167,8 +171,6 @@ $(function(){
             var col = Math.min(Math.floor(x / audioWidth), numCols-1);
 
             console.log(row, col);
-            var imgs = $("img");
-            var h2s = $("h2");
 
             $("#widget"+row+col)[0].volume = 1;
             imgs.eq(row*numCols+col).addClass("active");
@@ -183,9 +185,6 @@ $(function(){
 
     // mutes all widgets except the one denoted by (row, col)
     function muteEverythingElse(row, col) {
-        var imgs = $("img");
-        var h2s = $("h2");
-
         var i;
         if (row < 0 || col < 0) {
             for (i = 0; i < audioTags.length; i++) {
