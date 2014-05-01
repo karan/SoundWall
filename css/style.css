@@ -8,7 +8,7 @@
 html,body { height: 100%; margin: 0px; padding: 0px; }
 
 body {
-    /*background-color: #111111;*/
+    background-color: #111111;
     font-family: avenir, 'avenir next', helvetica, arial, sans-serif;
     text-align: center;
 }
@@ -117,11 +117,11 @@ p {
     height: 50px;
 }
 
-iframe {
+img {
     opacity: 0.3;
 }
 
-iframe.active {
+img.active {
     opacity: 1;
 }
 
