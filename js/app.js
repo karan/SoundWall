@@ -3,7 +3,7 @@ $(function(){
     $(document).height($(window).height());
     $("#grid").height($(document).height()-$("#header").height());
 
-    $("#intro-modal").modal('show');
+    // $("#intro-modal").modal('show');
 
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
@@ -36,6 +36,7 @@ $(function(){
 
     // when page first loads, search for this
     // addTracks("armin van buuren");
+    addTracks("dada life");
 
     // build the grid of audioTags. images and h2 titles
     // every element is just empty after this point
@@ -66,6 +67,9 @@ $(function(){
             }
         }
 
+        h2s = $("h2");
+        imgs = $("img");
+
         i = 0;
         j = 0;
         $("img").each(function() {
@@ -82,9 +86,6 @@ $(function(){
                 j = 0;
             }
         });
-
-        h2s = $("h2");
-        imgs = $("img");
     }
 
     // reset the state of DOM
@@ -140,21 +141,28 @@ $(function(){
     // loads the tracks into audioTags
     function loadTracks(tracks) {
         numPlayers = Math.min(audioTags.length, tracks.length);
+        var tracksAdded = 0;
+        var i = 0;
 
-        for (var i = 0; i < numPlayers; i++) {
-            var audio = audioTags[i];
-            audio.attr("src", tracks[i].stream_url + "?client_id=" + client_id);
-            audio[0].volume = 0;
-            audio[0].play();
+        while (tracksAdded < numPlayers && i < tracks.length) {
+            var thisTrack = tracks[i];
+            console.log("added=", tracksAdded, "title=", thisTrack.title);
+            if (thisTrack.streamable === true) {
+                var audio = audioTags[tracksAdded];
+                audio.attr("src", thisTrack.stream_url + "?client_id=" + client_id);
+                audio[0].volume = 0;
+                audio[0].play();
 
-            $(h2s[i]).text(tracks[i].title);
+                $(h2s[tracksAdded]).text(thisTrack.title);
 
-            if (tracks[i].artwork_url) {                
-                imgs[i].src = tracks[i].artwork_url.replace("large", "t500x500");
-            } else {
-                imgs[i].src = "images/default.png";
+                if (thisTrack.artwork_url) {                
+                    imgs[tracksAdded].src = thisTrack.artwork_url.replace("large", "t500x500");
+                } else {
+                    imgs[tracksAdded].src = "images/default.png";
+                }
+                tracksAdded++;
             }
-
+            i++;
         }
     }
 
