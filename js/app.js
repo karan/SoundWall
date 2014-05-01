@@ -3,7 +3,7 @@ $(function(){
     $(document).height($(window).height());
     $("#grid").height($(document).height()-$("#header").height());
 
-    // $("#intro-modal").modal('show');
+    $("#intro-modal").modal('show');
 
     // SC api key
     var client_id = '5371eb9743a8c619876d4e967d558f82';
@@ -32,17 +32,17 @@ $(function(){
     });
 
     // when page first loads, search for this
-    addTracks("armin van buuren");
+    // addTracks("armin van buuren");
 
     // build the grid of audioTags
     function builGrid() {
         console.log("building grid");
         locked = false;
 
-        var i = 0;
+        var i = 0, j = 0;
         var grid = $("#grid");
         for (i = 0; i < numRows; i++) {
-            for (var j = 0; j < numCols; j++) {
+            for (j = 0; j < numCols; j++) {
                 var audio = $('<audio/>').attr('id', 'widget'+i+j);
                 var image = $('<img/>').attr("id", "img"+i+j);
                 var h2 = $('<h2/>');
@@ -53,7 +53,7 @@ $(function(){
 
                 image.width(audioWidth);
                 image.height(audioHeight);
-                
+
                 grid.append(image);
                 grid.append(h2);
                 grid.append(audio);
@@ -65,11 +65,11 @@ $(function(){
         var h2s = $("h2");
 
         i = 0;
-        var j = 0;
+        j = 0;
         $("img").each(function() {
             var imgHeight = $(this).height();
             var position = $(this).position();
-            var positionTop = (position.top + 2/3*imgHeight);
+            var positionTop = (position.top);
             var positionLeft = (position.left);
             var playerTop = position.top+imgHeight-$(audioTags[i]).height();
             $(h2s[i]).css({"position":"absolute", "top":positionTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});

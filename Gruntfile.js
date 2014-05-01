@@ -46,6 +46,22 @@ module.exports = function(grunt) {
           'dist/css/bootstrap.min.css': 'css/vendor/bootstrap.min.css'
         }
       }
+    },
+
+     watch: {
+
+      // for stylesheets, watch css and less files
+      // only run less and cssmin
+      stylesheets: {
+        files: 'css/*.css',
+        tasks: 'cssmin'
+      },
+
+      // for scripts, run jshint and uglify
+      scripts: {
+        files: 'js/*.js',
+        tasks: ['jshint', 'uglify']
+      }
     }
 
   });
