@@ -41,6 +41,17 @@ $(function() {
         $("#intro-modal").modal('show');
     }
 
+    // browser has been resized
+    $(window).resize(function() {
+        // $(document).height($(window).height());
+        // $("#grid").height($(document).height()-$("#header").height());
+
+        audioWidth = $("#grid").width() / numCols;
+        audioHeight = $("#grid").height() / numRows;
+
+        setCardSize();
+    });
+
     // when page first loads, search for this
     // addTracks("armin van buuren");
     // addTracks("dada life");
@@ -80,24 +91,7 @@ $(function() {
             }
         }
 
-        h2s = $("h2");
-        imgs = $("img");
-
-        i = 0;
-        j = 0;
-        $("img").each(function() {
-            var imgHeight = $(this).height();
-            var position = $(this).position();
-            var positionTop = (position.top);
-            var playerTop = position.top+imgHeight-$(audioTags[i]).height();
-            $(h2s[i]).css({"position":"absolute", "top":positionTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});
-            $(audioTags[i]).css({"position":"absolute", "top":playerTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});
-            i++;
-            j++;
-            if (j >= numCols) {
-                j = 0;
-            }
-        });
+        setCardSize();
     }
 
     // reset the state of DOM
@@ -228,6 +222,33 @@ $(function() {
                 }
             }
         }
+    }
+
+    // sizes every thing in a single card to the appropriate
+    // width and height
+    function setCardSize() {
+        h2s = $("h2");
+        imgs = $("img");
+
+        i = 0;
+        j = 0;
+        
+        $("img").each(function() {
+            $(this).width(audioWidth);
+            $(this).height(audioHeight);
+
+            var imgHeight = $(this).height();
+            var position = $(this).position();
+            var positionTop = (position.top);
+            var playerTop = position.top+imgHeight-$(audioTags[i]).height();
+            $(h2s[i]).css({"position":"absolute", "top":positionTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});
+            $(audioTags[i]).css({"position":"absolute", "top":playerTop+"px", "left":j*audioWidth+"px", "width":audioWidth +"px"});
+            i++;
+            j++;
+            if (j >= numCols) {
+                j = 0;
+            }
+        });
     }
 
 });
