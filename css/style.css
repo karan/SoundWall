@@ -30,6 +30,11 @@ a {
     color: #AAAAAA;
 }
 
+a:hover {
+    color: #AAAAAA;
+    text-decoration: none;
+}
+
 p {
     font-size: 1.3em;
     line-height: 1.7em;

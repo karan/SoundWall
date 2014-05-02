@@ -161,7 +161,7 @@ $(function() {
                 audio[0].volume = 0;
                 audio[0].play();
 
-                $(h2s[tracksAdded]).text(thisTrack.title);
+                $(h2s[tracksAdded]).append("<a href='" + thisTrack.permalink_url + "' target='_blank'>" + thisTrack.title + "</a>");
 
                 if (thisTrack.artwork_url) {                
                     imgs[tracksAdded].src = thisTrack.artwork_url.replace("large", "t500x500");
