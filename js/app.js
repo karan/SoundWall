@@ -76,7 +76,7 @@ $(function() {
                 var h2 = $('<h2/>');
 
                 // add properties to the audio player
-                // audio.attr("loop", "true");
+                audio.attr("loop", "true");
                 audio.attr("controls", "true");
                 audio.attr("autoplay", "true");
 
