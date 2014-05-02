@@ -64,6 +64,7 @@ h2 {
 
 #header {
     display: block;
+    width: 100%;
 }
 
 @-webkit-keyframes blink-logo {
