@@ -1,12 +1,15 @@
-$(function(){
-
-    $(document).height($(window).height());
-    $("#grid").height($(document).height()-$("#header").height());
-
-    $("#intro-modal").modal('show');
+$(function() {
 
     // SC api key
     var client_id = ['5371eb9743a8c619876d4e967d558f82', '0dc8789a4e3488e1ba3d798f48b6a5e7'];
+
+    // initialize the soundcloud app
+    SC.initialize({
+        client_id: client_id[0]
+    });
+
+    $(document).height($(window).height());
+    $("#grid").height($(document).height()-$("#header").height());
 
     var numCols = 3;    // number of columns in the grid
     var numRows = 2;    // number of rows in the grid
@@ -24,15 +27,19 @@ $(function(){
 
     var locked = false; // if true, mouseover event will not work
 
-    // initialize the soundcloud app
-    SC.initialize({
-        client_id: client_id[0]
-    });
-
     // start a track after the first modal is closed
     $('#intro-modal').on('hide.bs.modal', function (e) {
+        localStorage.setItem('intromodal', true);   // register in local storage
         addTracks("armin van buuren");
     });
+
+    // if we've shown the modal to the user already, then don't again
+    if (localStorage.getItem("intromodal")) {
+        // we've shown the modal before
+        addTracks("armin van buuren");
+    } else {
+        $("#intro-modal").modal('show');
+    }
 
     // when page first loads, search for this
     // addTracks("armin van buuren");
