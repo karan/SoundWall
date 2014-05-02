@@ -21,6 +21,7 @@ $(function() {
     var audioWidth = $("#grid").width() / numCols;
     var audioHeight = $("#grid").height() / numRows;
 
+    var allTracks = []; // holds a list of all tracks in memory
     var audioTags = []; // all audio players
     var h2s = [];   // all h2 tags
     var imgs = [];  // all image tags
@@ -75,7 +76,7 @@ $(function() {
                 var h2 = $('<h2/>');
 
                 // add properties to the audio player
-                audio.attr("loop", "true");
+                // audio.attr("loop", "true");
                 audio.attr("controls", "true");
                 audio.attr("autoplay", "true");
 
@@ -92,6 +93,7 @@ $(function() {
         }
 
         setCardSize();
+        // bindOnEnded();
     }
 
     // reset the state of DOM
@@ -140,21 +142,20 @@ $(function() {
             tracks.sort(function() { 
                 return 0.5 - Math.random(); 
             });
-            loadTracks(tracks);
+            allTracks = tracks;
+            loadTracks();
         });
     }
 
     // loads the tracks into audioTags
-    function loadTracks(tracks) {
-        numPlayers = Math.min(audioTags.length, tracks.length);
+    function loadTracks() {
+        numPlayers = Math.min(audioTags.length, allTracks.length);
         var tracksAdded = 0;
         var i = 0;
-        console.log(tracks);
 
         while (tracksAdded < numPlayers) {
-            var thisTrack = tracks[i];
+            var thisTrack = allTracks.pop();
             if (thisTrack.streamable === true) {
-                console.log("added=", tracksAdded, "title=", thisTrack.title);
                 console.log(thisTrack);
                 var audio = audioTags[tracksAdded];
                 audio.attr("src", thisTrack.stream_url + "?client_id="+client_id[tracksAdded%2]);
@@ -168,12 +169,44 @@ $(function() {
                 } else {
                     imgs[tracksAdded].src = "images/default.png";
                 }
-                console.log(tracksAdded);
                 tracksAdded++;
             }
             i++;
         }
     }
+
+    // function bindOnEnded() {
+    //     $("audio").each(function(elem) {
+    //         console.log("in loop for binding");
+    //         console.log(audioTags[elem][0]);
+    //         $(audioTags[elem][0]).on("ended", function() {
+    //             console.log("binding", audioTags[elem]);
+    //             var tracksAdded = 0;
+    //             var numPlayers = 1;
+    //             while (tracksAdded < numPlayers) {
+    //                 var thisTrack = allTracks.pop();
+    //                 if (thisTrack.streamable === true) {
+    //                     console.log(thisTrack);
+    //                     var audio = audioTags[tracksAdded];
+    //                     audio.attr("src", thisTrack.stream_url + "?client_id="+client_id[tracksAdded%2]);
+    //                     audio[0].volume = 0;
+    //                     audio[0].play();
+
+    //                     $(h2s[tracksAdded]).text(thisTrack.title);
+
+    //                     if (thisTrack.artwork_url) {                
+    //                         imgs[tracksAdded].src = thisTrack.artwork_url.replace("large", "t500x500");
+    //                     } else {
+    //                         imgs[tracksAdded].src = "images/default.png";
+    //                     }
+    //                     tracksAdded++;
+    //                     bindOnEnded(audio);
+    //                 }
+    //                 i++;
+    //             }
+    //         });
+    //     });
+    // }
 
     // // handle cursor movement
     $("#grid").mouseover(function(data) {
