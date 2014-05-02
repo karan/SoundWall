@@ -76,7 +76,7 @@ $(function() {
                 var h2 = $('<h2/>');
 
                 // add properties to the audio player
-                audio.attr("loop", "true");
+                // audio.attr("loop", "true");
                 audio.attr("controls", "true");
                 audio.attr("autoplay", "true");
 
@@ -93,7 +93,6 @@ $(function() {
         }
 
         setCardSize();
-        // bindOnEnded();
     }
 
     // reset the state of DOM
@@ -174,39 +173,6 @@ $(function() {
             i++;
         }
     }
-
-    // function bindOnEnded() {
-    //     $("audio").each(function(elem) {
-    //         console.log("in loop for binding");
-    //         console.log(audioTags[elem][0]);
-    //         $(audioTags[elem][0]).on("ended", function() {
-    //             console.log("binding", audioTags[elem]);
-    //             var tracksAdded = 0;
-    //             var numPlayers = 1;
-    //             while (tracksAdded < numPlayers) {
-    //                 var thisTrack = allTracks.pop();
-    //                 if (thisTrack.streamable === true) {
-    //                     console.log(thisTrack);
-    //                     var audio = audioTags[tracksAdded];
-    //                     audio.attr("src", thisTrack.stream_url + "?client_id="+client_id[tracksAdded%2]);
-    //                     audio[0].volume = 0;
-    //                     audio[0].play();
-
-    //                     $(h2s[tracksAdded]).text(thisTrack.title);
-
-    //                     if (thisTrack.artwork_url) {                
-    //                         imgs[tracksAdded].src = thisTrack.artwork_url.replace("large", "t500x500");
-    //                     } else {
-    //                         imgs[tracksAdded].src = "images/default.png";
-    //                     }
-    //                     tracksAdded++;
-    //                     bindOnEnded(audio);
-    //                 }
-    //                 i++;
-    //             }
-    //         });
-    //     });
-    // }
 
     // // handle cursor movement
     $("#grid").mouseover(function(data) {
