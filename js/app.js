@@ -44,14 +44,19 @@ $(function() {
 
     // browser has been resized
     $(window).resize(function() {
-        // $(document).height($(window).height());
-        // $("#grid").height($(document).height()-$("#header").height());
+        handleResizing();
+    });
+    $(document).resize(function() {
+        handleResizing();
+    });
 
+    function handleResizing() {
+        $(document).height($(window).height());
+        $("#grid").height($(document).height()-$("#header").height());
         audioWidth = $("#grid").width() / numCols;
         audioHeight = $("#grid").height() / numRows;
-
         setCardSize();
-    });
+    }
 
     // when page first loads, search for this
     // addTracks("armin van buuren");
